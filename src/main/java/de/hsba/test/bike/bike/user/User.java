@@ -1,6 +1,5 @@
 package de.hsba.test.bike.bike.user;
 
-import jdk.jfr.Enabled;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,13 +12,27 @@ public class User {
     @Id @GeneratedValue
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+
+    @Column(nullable = false)
     private String role;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     public Long getId() {
         return id;
@@ -53,9 +66,10 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String password, String role) {
+    public User(String name, String password, String email, String role) {
         this.name = name;
         this.password = password;
+        this.email = email;
         this.role = role;
     }
 
