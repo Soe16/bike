@@ -2,6 +2,11 @@ package de.hsba.test.bike.bike.order;
 
 import de.hsba.test.bike.bike.order.states.*;
 
+import javax.persistence.*;
+
+/*
+@Entity
+*/
 public class Order implements OrderState{
 
 
@@ -19,10 +24,45 @@ public class Order implements OrderState{
     String deliverNumber;
     String deliverZip;
 
+
+
+/*
+
+    @Id
+    @GeneratedValue
+    public Long id;
+
+    @Column(nullable = false)
+    public String deliverer;
+
+    @Column(nullable = false)
+    public String customer;
+
+    @Column(nullable = false)
+    public String customerStreet;
+
+    @Column(nullable = false)
+    public String customerNumber;
+
+    @Column(nullable = false)
+    public String customerZip;
+
+    @Column(nullable = false)
+    public String deliveree;
+
+    @Column(nullable = false)
+    public String deliverStreet;
+
+    @Column(nullable = false)
+    public String deliverNumber;
+
+    @Column(nullable = false)
+    public String deliverZip;
+
+    */
+
     //Attribut-setter
-    public void setId(String newId){
-        id = newId;
-    }
+    public void setId(String newId) { id = newId; }
     public void setDeliverer(String newDeliverer){
         deliverer = newDeliverer;
     }
@@ -124,6 +164,7 @@ public class Order implements OrderState{
         setOrderState(newState);
     }
 
+    @Column(nullable = false)
     public String getStatus() {
         return orderState.getStatus();
     }
