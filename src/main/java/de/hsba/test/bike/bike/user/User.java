@@ -21,9 +21,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-
     @Column(nullable = false)
     private String role;
+
 
     public String getEmail() {
         return email;
