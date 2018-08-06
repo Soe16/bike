@@ -50,9 +50,9 @@ public class IndexController {
     }
 
     @PostMapping("/postOrder")
-    public String add(String id, String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
+    public String add(int currentState, String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
         order.newOrder();
-        order.setId(id);
+        order.setCurrentState(currentState);
         order.setDeliverer(deliverer);
         order.setCustomer(customer);
         order.setCustomerStreet(customerStreet);

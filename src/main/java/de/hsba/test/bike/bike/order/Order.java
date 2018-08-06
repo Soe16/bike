@@ -2,27 +2,47 @@ package de.hsba.test.bike.bike.order;
 
 import de.hsba.test.bike.bike.order.states.*;
 
+import javax.persistence.*;
+
+@Entity
 public class Order implements OrderState{
 
+    @Id
+    @GeneratedValue
+    public Long id;
 
-    //Attribute
-    String id;
-    String deliverer;
+    @Column(nullable = false)
+    public int currentState; // 0 = new, 1 = accepted, 2 = inDelivery, 3 = Delivered, 4 = Canceled
 
-    String customer;
-    String customerStreet;
-    String customerNumber;
-    String customerZip;
+    @Column(nullable = false)
+    public String deliverer;
 
-    String deliveree;
-    String deliverStreet;
-    String deliverNumber;
-    String deliverZip;
+    @Column(nullable = false)
+    public String customer;
+
+    @Column(nullable = false)
+    public String customerStreet;
+
+    @Column(nullable = false)
+    public String customerNumber;
+
+    @Column(nullable = false)
+    public String customerZip;
+
+    @Column(nullable = false)
+    public String deliveree;
+
+    @Column(nullable = false)
+    public String deliverStreet;
+
+    @Column(nullable = false)
+    public String deliverNumber;
+
+    @Column(nullable = false)
+    public String deliverZip;
 
     //Attribut-setter
-    public void setId(String newId){
-        id = newId;
-    }
+    public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
     public void setDeliverer(String newDeliverer){
         deliverer = newDeliverer;
     }
@@ -52,8 +72,8 @@ public class Order implements OrderState{
     }
 
     //Attribut-getter
-    public String getId(){
-        return id;
+    public int getCurrentState(){
+        return currentState;
     }
     public String getDeliverer(){
         return deliverer;
@@ -108,11 +128,26 @@ public class Order implements OrderState{
 
 
     //State - getter
-    public OrderState getNewState() { return newState; }
-    public OrderState getAcceptedState() { return acceptedState; }
-    public OrderState getInDeliveryState() { return inDeliveryState; }
-    public OrderState getDeliveredState() { return deliveredState; }
-    public OrderState getCanceledState() { return canceledState; }
+    public OrderState getNewState() {
+        setCurrentState(0);
+        return newState;
+    }
+    public OrderState getAcceptedState() {
+        setCurrentState(1);
+        return acceptedState;
+    }
+    public OrderState getInDeliveryState() {
+        setCurrentState(2);
+        return inDeliveryState;
+    }
+    public OrderState getDeliveredState() {
+        setCurrentState(3);
+        return deliveredState;
+    }
+    public OrderState getCanceledState() {
+        setCurrentState(4);
+        return canceledState;
+    }
 
     //State - setter
     public void setOrderState(OrderState newOrderState) {
@@ -136,4 +171,23 @@ public class Order implements OrderState{
         orderState.cancelOrder();
     }
 
+    public void loadStatus(int currentState) {
+        switch (currentState) {
+            case 0:
+                setOrderState(getNewState());
+                break;
+            case 1:
+                setOrderState(getAcceptedState());
+                break;
+            case 2:
+                setOrderState(getInDeliveryState());
+                break;
+            case 3:
+                setOrderState(getDeliveredState());
+                break;
+            case 4:
+                setOrderState(getCanceledState());
+                break;
+        }
+    }
 }
