@@ -39,7 +39,8 @@ public class IndexController {
     @GetMapping("/status")
     public String status(Model model) {
         String stat = order.getStatus();
-        model.addAttribute("stat", stat);
+        int statNr = order.currentState;
+        model.addAttribute("stat", stat + ", currenStateNr: " + statNr);
         return "index";
     }
 
@@ -50,9 +51,9 @@ public class IndexController {
     }
 
     @PostMapping("/postOrder")
-    public String add(int currentState, String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
+    public String add(Long id, String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
         order.newOrder();
-        order.setCurrentState(currentState);
+        //order.setId(id);
         order.setDeliverer(deliverer);
         order.setCustomer(customer);
         order.setCustomerStreet(customerStreet);

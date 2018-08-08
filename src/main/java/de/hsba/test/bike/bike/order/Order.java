@@ -4,7 +4,9 @@ import de.hsba.test.bike.bike.order.states.*;
 
 import javax.persistence.*;
 
+/*
 @Entity
+*/
 public class Order implements OrderState{
 
     @Id
@@ -40,6 +42,7 @@ public class Order implements OrderState{
 
     @Column(nullable = false)
     public String deliverZip;
+
 
     //Attribut-setter
     public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
@@ -123,6 +126,7 @@ public class Order implements OrderState{
         canceledState = new CanceledState(this);
 
         //Ausgangszustand
+        currentState = 0;
         orderState = newState;
     }
 
@@ -130,24 +134,19 @@ public class Order implements OrderState{
     //State - getter
     public OrderState getNewState() {
         setCurrentState(0);
-        return newState;
-    }
+        return newState; }
     public OrderState getAcceptedState() {
         setCurrentState(1);
-        return acceptedState;
-    }
+        return acceptedState; }
     public OrderState getInDeliveryState() {
         setCurrentState(2);
-        return inDeliveryState;
-    }
+        return inDeliveryState; }
     public OrderState getDeliveredState() {
         setCurrentState(3);
-        return deliveredState;
-    }
+        return deliveredState; }
     public OrderState getCanceledState() {
         setCurrentState(4);
-        return canceledState;
-    }
+        return canceledState; }
 
     //State - setter
     public void setOrderState(OrderState newOrderState) {
@@ -190,4 +189,5 @@ public class Order implements OrderState{
                 break;
         }
     }
+
 }
