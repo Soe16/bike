@@ -1,28 +1,48 @@
 package de.hsba.test.bike.bike.order;
 
-import de.hsba.test.bike.bike.order.states.*;
+import javax.persistence.*;
 
-public class Order implements OrderState{
+@Entity
+@Table(name = "bestellung")
+public class Order{
+
+    @Id
+    @GeneratedValue
+    public Long id;
+
+    @Column(nullable = false)
+    public int currentState; // 0 = new, 1 = accepted, 2 = inDelivery, 3 = Delivered, 4 = Canceled
+
+    @Column(nullable = false)
+    public String deliverer;
+
+    @Column(nullable = false)
+    public String customer;
+
+    @Column(nullable = false)
+    public String customerStreet;
+
+    @Column(nullable = false)
+    public String customerNumber;
+
+    @Column(nullable = false)
+    public String customerZip;
+
+    @Column(nullable = false)
+    public String deliveree;
+
+    @Column(nullable = false)
+    public String deliverStreet;
+
+    @Column(nullable = false)
+    public String deliverNumber;
+
+    @Column(nullable = false)
+    public String deliverZip;
 
 
-    //Attribute
-    String id;
-    String deliverer;
-
-    String customer;
-    String customerStreet;
-    String customerNumber;
-    String customerZip;
-
-    String deliveree;
-    String deliverStreet;
-    String deliverNumber;
-    String deliverZip;
-
-    //Attribut-setter
-    public void setId(String newId){
-        id = newId;
-    }
+    //setter
+    public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
     public void setDeliverer(String newDeliverer){
         deliverer = newDeliverer;
     }
@@ -51,9 +71,9 @@ public class Order implements OrderState{
         deliverZip = newDeliverZip;
     }
 
-    //Attribut-getter
-    public String getId(){
-        return id;
+    //getter
+    public int getCurrentState(){
+        return currentState;
     }
     public String getDeliverer(){
         return deliverer;
@@ -83,57 +103,53 @@ public class Order implements OrderState{
         return deliverZip;
     }
 
-    //Zustände definieren
-    OrderState newState;
-    OrderState acceptedState;
-    OrderState inDeliveryState;
-    OrderState deliveredState;
-    OrderState canceledState;
-
-    //gespeicherter Zustand
-    OrderState orderState;
-
     //constructor
-    public Order() {
-        //Zustände initialisieren
-        newState = new NewState(this);
-        acceptedState = new AcceptedState(this);
-        inDeliveryState = new InDeliveryState(this);
-        deliveredState = new DeliveredState(this);
-        canceledState = new CanceledState(this);
 
-        //Ausgangszustand
-        orderState = newState;
+    public Order(
+            String deliverer,
+            String customer,
+            String customerStreet,
+            String customerNumber,
+            String customerZip,
+            String deliveree,
+            String deliverStreet,
+            String deliverNumber,
+            String deliverZip
+    ) {
+        currentState = 0;
+        this.deliverer = deliverer;
+        this.customer = customer;
+        this.customerStreet = customerStreet;
+        this.customerNumber = customerNumber;
+        this.customerZip = customerZip;
+        this.deliveree = deliveree;
+        this.deliverStreet = deliverStreet;
+        this.deliverNumber = deliverNumber;
+        this.deliverZip = deliverZip;
     }
 
+    //methoden
 
-    //State - getter
-    public OrderState getNewState() { return newState; }
-    public OrderState getAcceptedState() { return acceptedState; }
-    public OrderState getInDeliveryState() { return inDeliveryState; }
-    public OrderState getDeliveredState() { return deliveredState; }
-    public OrderState getCanceledState() { return canceledState; }
-
-    //State - setter
-    public void setOrderState(OrderState newOrderState) {
-        orderState = newOrderState;
-    }
-
-    //Methoden
-    public void newOrder() {
-        setOrderState(newState);
-    }
-
-    public String getStatus() {
-        return orderState.getStatus();
-    }
-
-    public void nextStatus() {
-        orderState.nextStatus();
+    public void nextState() {
+        if(currentState < 3) {
+            currentState++;
+        }
     }
 
     public void cancelOrder() {
-        orderState.cancelOrder();
+        if(currentState < 3) {
+            currentState = 4;
+        }
     }
 
+    public String getState() {
+        switch (currentState) {
+            case 0:  return "New order";
+            case 1:  return "The order was accepted by a courier";
+            case 2:  return "The package was picked up by the courier";
+            case 3:  return "The package has been delivered succesfully";
+            case 4:  return "Order canceled.";
+            default: return null;
+        }
+    }
 }

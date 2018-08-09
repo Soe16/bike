@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/registration")
-public class RegistrationController {
+@RequestMapping("/orders")
+public class viewOrderController {
 
     @GetMapping
     public String regestration(){
-        return "registration";
+        return "orders";
     }
 
 

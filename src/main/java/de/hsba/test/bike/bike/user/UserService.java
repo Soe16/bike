@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository){
@@ -27,18 +27,12 @@ public class UserService {
 
     @PostConstruct
     public void init(){
-        initUser("JAkob", "ja@mail.de", "test", "Customer");
-        initUser("Bernd", "be@mail.de", "test", "Deliverer");
+        createUser("JAkob", "ja@mail.de", "test", "Customer");
+        createUser("Bernd", "be@mail.de", "test", "Deliverer");
     }
 
-    private void initUser(String name, String email, String password, String role) {
+    private void createUser(String name, String email, String password, String role) {
         userRepository.save(new User(name, email, password, role));
-    }
-
-    public User createUser(String name, String email, String password, String role){
-        User user = new User(name,email,password,role);
-        user.setName(name);
-        return userRepository.save(user);
     }
 
 }

@@ -16,11 +16,10 @@ public class User {
     private String name;
 
     @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private String role;
@@ -34,11 +33,13 @@ public class User {
         this.email = email;
     }
 
-
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -64,10 +65,10 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String email, String password, String role) {
+    public User(String name, String password, String email, String role) {
         this.name = name;
-        this.email = email;
         this.password = password;
+        this.email = email;
         this.role = role;
     }
 
@@ -77,6 +78,5 @@ public class User {
                 "name=" + name + '\'' +
                 '}';
     }
-
 }
 
