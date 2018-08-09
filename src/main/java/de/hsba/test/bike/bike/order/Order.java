@@ -3,7 +3,7 @@ package de.hsba.test.bike.bike.order;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "bestellung")
+@Table(name = "bestellung") // order = reserviertes sql wort, daher "bestellung"
 public class Order{
 
     @Id
