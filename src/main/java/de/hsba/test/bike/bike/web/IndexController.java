@@ -16,13 +16,17 @@ public class IndexController {
         return "index";
     }
 
-    Order order = new Order();
-
-    @GetMapping("/newOrder")
-    public String newOrder() {
-        order.newOrder();
-        return "index";
-    }
+    Order order = new Order(
+            "Kuriere 2000 Inc. Co. KG",
+            "Mark",
+            "Mark's Street",
+            "25",
+            "12364",
+            "Bob",
+            "Bob's Street",
+            "5",
+            "69696"
+    );
 
     @GetMapping("/deliverer")
     public String deliverer(Model model) {
@@ -38,21 +42,19 @@ public class IndexController {
 
     @GetMapping("/status")
     public String status(Model model) {
-        String stat = order.getStatus();
+        String stat = order.getState();
         model.addAttribute("stat", stat);
         return "index";
     }
 
     @GetMapping("/nextState")
     public String nextState(Model model) {
-        order.nextStatus();
+        order.nextState();
         return "index";
     }
 
     @PostMapping("/postOrder")
-    public String add(String id, String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
-        order.newOrder();
-        order.setId(id);
+    public String addOrder(String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
         order.setDeliverer(deliverer);
         order.setCustomer(customer);
         order.setCustomerStreet(customerStreet);

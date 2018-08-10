@@ -3,10 +3,20 @@ package de.hsba.test.bike.bike;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class BikeApplication {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-	public static void main(String[] args) {
-		SpringApplication.run(BikeApplication.class, args);
-	}
-}
+    @SpringBootApplication
+    public class BikeApplication {
+
+
+        //database connection to view orders
+        public static void main(String[] args) throws SQLException {
+            SpringApplication.run(de.hsba.test.bike.bike.BikeApplication.class, args);
+            Connection conn = DriverManager.getConnection("jdbc:h2:mem:testdb", "sa", "");
+
+            conn.close();
+
+        }
+    }
