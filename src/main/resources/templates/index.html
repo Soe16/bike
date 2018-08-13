@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Fahrradkurierdienst</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>Fahrradkurierdienst</h1>
+
+        <form sec:authorize="authenticated"
+              action="/logout" class="pull-right" method="post">
+            <button type="submit" class="btn btn-xs btn-link">
+                <span th:text="${#httpServletRequest.remoteUser}" />
+                abmelden
+            </button>
+        </form>
+        <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
+        <a sec:authorize="hasRole('ADMIN')" href="/users/" class="btn btn-xs btn-link pull-right">Nutzerverwaltung</a>
+
+
+        <form action="/postOrder" method="post" class="form-inline">
+            <input name="id" type="number" placeholder="ID"
+                   class="form-control"/>
+            <input name="deliverer" type="text" placeholder="Deliverer"
+                   class="form-control"/>
+            <input name="customer" type="text" placeholder="Customer"
+                   class="form-control"/>
+            <input name="customerStreet" type="text" placeholder="Customer Street"
+                   class="form-control"/>
+            <input name="customerNumber" type="number" placeholder="Customer Street Number"
+                   class="form-control"/>
+            <input name="customerZip" type="number" placeholder="Customer ZIP Code"
+                   class="form-control"/>
+            <input name="deliveree" type="text" placeholder="Deliveree"
+                   class="form-control"/>
+            <input name="deliverStreet" type="text" placeholder="Deliver Street"
+                   class="form-control"/>
+            <input name="deliverNumber" type="number" placeholder="Deliver Street Number"
+                   class="form-control"/>
+            <input name="deliverZip" type="number" placeholder="Deliver ZIP Code"
+                   class="form-control"/>
+            <button type="submit" class="btn btn-primary">Make a new order</button>
+        </form>
+
+        <a href="/deliverer">Who is the deliverer of my current order?</a> <br>
+        <h1 th:if="${deliverer != null}" th:text="${deliverer}"></h1> <br>
+        <a href="/customer">Who is the customer??</a> <br>
+        <h1 th:if="${custom != null}" th:text="${custom}"></h1> <br>
+        <a href="/status">What is the current status?</a> <br>
+        <h1 th:if="${stat != null}" th:text="${stat}"></h1> <br>
+        <a href="/nextState">Advance to next stage</a> <br>
+        <a href="/cZip">What is the orders customers Zip code?</a> <br>
+        <h1 th:if="${cZip != null}" th:text="${cZip}"></h1> <br>
+
+        <a th:href="@{/orders }">View new orders</a>
+        <br>
+
+
+    </div>
+</div>
+</body>
+</html>
