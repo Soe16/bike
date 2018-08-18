@@ -13,30 +13,29 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
-@RequestMapping("/makeorder")
+@Controller("/makeorder")
 public class MakeOrderController {
 
     private OrderService orderService;
-    private OrderFormAssembler formAssembler;
+    private final OrderFormAssembler formAssembler;
 
     public MakeOrderController(OrderService orderService, OrderFormAssembler formAssembler) {
         this.orderService = orderService;
         this.formAssembler = formAssembler;
     }
 
-    @GetMapping
-    public String makeOrder(){
+    @GetMapping("/makeorder")
+    public String index(Model model) {
+        model.addAttribute("orderForm", new OrderForm());
         return "makeorder";
     }
 
-    @PostMapping("/postOrder")
-    public String create(@ModelAttribute("journalForm") @Valid OrderForm form,
-                       BindingResult binding) {
-        if(binding.hasErrors()) {
+    @PostMapping
+    public String create(@ModelAttribute("journalForm") @Valid OrderForm form, BindingResult orderBinding) {
+        if(orderBinding.hasErrors()) {
             return"makeorder";
         }
-        Order order = orderService.save(formAssembler.update(new Order(), form));
+        orderService.save(formAssembler.update(new Order(), form));
         return "redirect:/";
     }
 

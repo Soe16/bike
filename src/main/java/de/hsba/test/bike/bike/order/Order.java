@@ -88,6 +88,7 @@ public class Order{
     */
 
     //getter
+    public Long getId() { return id; }
     public int getCurrentState(){
         return currentState;
     }
