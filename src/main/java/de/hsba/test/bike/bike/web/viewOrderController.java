@@ -1,14 +1,9 @@
 package de.hsba.test.bike.bike.web;
 
-import de.hsba.test.bike.bike.user.User;
+import de.hsba.test.bike.bike.order.OrderRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.beans.Statement;
-import java.sql.ResultSet;
-import java.util.Vector;
 
 
 @Controller
@@ -21,8 +16,31 @@ public class viewOrderController {
         return "orders";
     }
 
-//Datenbankabfrage hier rein, table muss definiert werden: table ist " bestellung  " : https://jaxenter.de/mysql-und-java-datenabfrage-8123
+/* zu Versuch 2 und 4 bei OrderRepository
+    //Versuch nur Bestellungen mit currentstate 0 zu filtern, Siehe orderRepository Interface
 
+    public void QueryCurrentState () {
+        System.out.println("\n Find current State equals 0");
+        OrderRepository.findByCurrentState(0).forEach(System.out::println);
+    }
+ */
+
+    public void QueryCurrentState () {
+        System.out.println("\n Find current State equals 0");
+        OrderRepository.findCurrentState0().forEach(System.out::println);
+    }
+
+
+
+
+
+
+
+
+
+
+//Datenbankabfrage hier rein, table muss definiert werden: table ist " bestellung  " : https://jaxenter.de/mysql-und-java-datenabfrage-8123
+/*
     public Vector loadCustomers(String table)
     { Statement stmt = null;
         ResultSet result = null;

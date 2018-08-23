@@ -1,8 +1,8 @@
 package de.hsba.test.bike.bike.order;
 
+import de.hsba.test.bike.bike.user.User;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "bestellung") //order ist ein reserviertes sql wort, daher anderer tabellenname
@@ -15,8 +15,11 @@ public class Order{
     @Column(nullable = false)
     public int currentState; // 0 = new, 1 = accepted, 2 = inDelivery, 3 = Delivered, 4 = Canceled
 
-    @Column(nullable = false)
-    public String deliverer;
+    @ManyToOne(optional = false)  //Auftraggeber
+    public User owner;
+
+    @ManyToOne   //Kurier
+    public User deliverer;
 
     @Column(nullable = false)
     public String customer;
@@ -45,8 +48,11 @@ public class Order{
 
     //setter
     public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
-    public void setDeliverer(String newDeliverer){
+    public void setDeliverer(User newDeliverer){
         deliverer = newDeliverer;
+    }
+    public void setOwner(User newOwner){
+        owner = newOwner;
     }
     public void setCustomer(String newCustomer){
         customer = newCustomer;
@@ -76,17 +82,20 @@ public class Order{
 /*
     //von Jakob 08.08
     private List<Order> orders;
-
     */
 
     //getter
+    public Long getId() { return id; }
     public int getCurrentState(){
         return currentState;
     }
-    public String getDeliverer(){
+    public User getDeliverer(){
         return deliverer;
     }
-    public String getCustomer(){
+    public User getOwner(){
+        return owner;
+    }
+    public String getCustomer() {
         return customer;
     }
     public String getCustomerStreet(){
@@ -125,7 +134,6 @@ public class Order{
     //constructor
 
     public Order(
-            String deliverer,
             String customer,
             String customerStreet,
             String customerNumber,
@@ -136,7 +144,6 @@ public class Order{
             String deliverZip
     ) {
         currentState = 0;
-        this.deliverer = deliverer;
         this.customer = customer;
         this.customerStreet = customerStreet;
         this.customerNumber = customerNumber;
@@ -147,12 +154,23 @@ public class Order{
         this.deliverZip = deliverZip;
     }
 
+    public Order(){currentState = 0;}
+
     //methoden
 
     public void nextState() {
         if(currentState < 3) {
             currentState++;
         }
+    }
+
+    @PrePersist
+    private void onPersist() {
+        this.owner = User.getCurrentUser();
+    }
+
+    public boolean isOwnedByCurrentUser() {
+        return this.owner != null && this.owner.equals(User.getCurrentUser());
     }
 
     public void cancelOrder() {

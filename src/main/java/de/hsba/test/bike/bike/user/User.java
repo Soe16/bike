@@ -1,6 +1,8 @@
 package de.hsba.test.bike.bike.user;
 
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,18 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
+    public static User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserAdapter) {
+            return ((UserAdapter) principal).getUser();
+        }
+        return null;
+    }
+
     @Id @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -72,6 +82,9 @@ public class User {
         this.role = role;
     }
 
+    public User(){
+    }
+
     @Override
     public String toString(){
         return "User{" +
@@ -79,4 +92,3 @@ public class User {
                 '}';
     }
 }
-

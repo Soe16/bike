@@ -3,7 +3,6 @@ package de.hsba.test.bike.bike.order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 @Service
@@ -21,55 +20,31 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    /* Beispiel Order für Datenbank Bestellung
     @PostConstruct
     public void init(){
-        createOrder(
-                "Deliver Inc. Co. KG",
-                "Bob",
-                "Bob's Street",
-                "5",
-                "69696",
-                "John",
-                "John's Street",
-                "66",
-                "69697"
-        );
-        createOrder(
-                "Kuriere 2000 Inc. Co. KG",
-                "Mark",
-                "Mark's Street",
-                "25",
-                "12364",
-                "Bob",
-                "Bob's Street",
-                "5",
-                "69696"
-        );
+        createOrder("", "bob", "pass", "bob@mail.de", "Customer", "", "", "", "", "");
     }
 
-    private void createOrder(
-            String deliverer,
-            String customer,
-            String customerStreet,
-            String customerNumber,
-            String customerZip,
-            String deliveree,
-            String deliverStreet,
-            String deliverNumber,
-            String deliverZip
-    )
-    {
-        orderRepository.save(new Order(
-                deliverer,
-                customer,
-                customerStreet,
-                customerNumber,
-                customerZip,
-                deliveree,
-                deliverStreet,
-                deliverNumber,
-                deliverZip
-        ));
+    */
+
+
+    //User customer = new User("Bernd", "be@mail.de", "test", "Customer");
+
+    //User deliverer1 = new User("Kuriere 2000 Inc. Co. KG", "test","mail@mail.mail", "Deliverer");
+
+    //User deliverer2 = new User("Deliver Inc. Co. KG", "test","mail23@mail.mail", "Deliverer");
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
+    public void delete(Long id) {
+        this.orderRepository.deleteById(id);
+    }
+
+    public Order findOrder(Long id) {
+        return orderRepository.findById(id).orElse(null);
     }
 
 }

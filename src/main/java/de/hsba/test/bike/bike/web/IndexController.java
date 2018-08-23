@@ -1,14 +1,14 @@
 package de.hsba.test.bike.bike.web;
 
-import de.hsba.test.bike.bike.order.Order;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/")
 public class IndexController {
 
     @GetMapping("/")
@@ -16,9 +16,17 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth instanceof AnonymousAuthenticationToken ? "login" : "redirect:/";
+    }
+
+    /*User customer = new User("Bernd", "be@mail.de", "test", "Customer");
+    User deliverer = new User("Kuriere 2000 Inc. Co. KG", "test","mail@mail.mail", "Deliverer");
     Order order = new Order(
-            "Kuriere 2000 Inc. Co. KG",
-            "Mark",
+            deliverer,
+            customer,
             "Mark's Street",
             "25",
             "12364",
@@ -27,34 +35,29 @@ public class IndexController {
             "5",
             "69696"
     );
-
     @GetMapping("/deliverer")
     public String deliverer(Model model) {
-        model.addAttribute("deliverer", order.getDeliverer());
+        model.addAttribute("deliverer", order.deliverer.getName());
         return "index";
     }
-
     @GetMapping("/customer")
     public String customer(Model model) {
-        model.addAttribute("deliverer", order.getCustomer());
+        model.addAttribute("deliverer", order.customer.getName());
         return "index";
     }
-
     @GetMapping("/status")
     public String status(Model model) {
         String stat = order.getState();
         model.addAttribute("stat", stat);
         return "index";
     }
-
     @GetMapping("/nextState")
     public String nextState(Model model) {
         order.nextState();
         return "index";
     }
-
     @PostMapping("/postOrder")
-    public String addOrder(String deliverer, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
+    public String addOrder(User deliverer, User customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
         order.setDeliverer(deliverer);
         order.setCustomer(customer);
         order.setCustomerStreet(customerStreet);
@@ -66,10 +69,9 @@ public class IndexController {
         order.setDeliverZip(deliverZip);
         return "redirect:/";
     }
-
     @GetMapping("/cZip")
     public String cZip(Model model) {
         model.addAttribute("cZip", order.getCustomerZip());
         return "index";
-    }
+    }*/
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/postOrder" method="post" class="form-inline">
+    <span>From Address</span>
+    <input name="fromName" type="text" placeholder="Name"
+           class="form-control"/>
+    <input name="fromStreetName" type="text" placeholder="Street name"
+           class="form-control"/>
+    <input name="fromStreetNumber" type="number" placeholder="Street number"
+           class="form-control"/>
+    <input name="fromZip" type="number" placeholder="ZIP"
+           class="form-control"/>
+    <span>To Address</span>
+    <input name="toName" type="text" placeholder="Name"
+           class="form-control"/>
+    <input name="toStreetName" type="text" placeholder="Street name"
+           class="form-control"/>
+    <input name="toStreetNumber" type="number" placeholder="Street number"
+           class="form-control"/>
+    <input name="toZip" type="number" placeholder="ZIP"
+           class="form-control"/>
+    <button type="submit" class="btn btn-primary">Make a new order</button>
+</form>
+
+</body>
+</html>
