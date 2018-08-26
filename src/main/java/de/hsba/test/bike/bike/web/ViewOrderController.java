@@ -1,20 +1,87 @@
 package de.hsba.test.bike.bike.web;
 
 import de.hsba.test.bike.bike.order.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
 @RequestMapping("/orders")
-public class viewOrderController {
+public class ViewOrderController {
 
 
-    @GetMapping("/")
-    public String vieworders(){
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @GetMapping
+        public String listOrders(Model model){
+
+            model.addAttribute("orders", orderRepository.findNewOrders());
+
+            return "orders";
+    }
+
+    // checkboxes die gecheckt sind, wird in datenbank bestellung geladen, dass 1. currentstatus verändern auf: (1) "The order was accepted by a courier" dementsprechen name des couriers hinterlegen..
+    // aufträge verwalten, neue seite für Kurier, same shit mit bestellung abgeholt und bestellung abgeliefert.
+
+
+}
+
+    /*
+    public void setOrderRepository(OrderRepository orderRepository){
+        this.orderRepository = orderRepository;
+    }
+*/
+    /*
+    @RequestMapping("/orders")
+
+
+    public String listOrders(Model model){
+
+        model.addAttribute("orders", orderRepository.findNewOrders());
+
+        return "orders";
+        */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    private OrderRepository orderRepository;
+
+    @Autowired
+    public void setOrderRepository(OrderRepository orderRepository){
+        this.orderRepository = orderRepository;
+    }
+
+    @RequestMapping("/orders")
+    public String listOrders(Model model){
+
+        model.addAttribute("orders", orderRepository.listAllNewOrders());
+
         return "orders";
     }
+
+    */
+
+
+
+
+
+
 
 /* zu Versuch 2 und 4 bei OrderRepository
     //Versuch nur Bestellungen mit currentstate 0 zu filtern, Siehe orderRepository Interface
@@ -25,10 +92,14 @@ public class viewOrderController {
     }
  */
 
+/* Versuch
+
     public void QueryCurrentState () {
         System.out.println("\n Find current State equals 0");
         OrderRepository.findCurrentState0().forEach(System.out::println);
     }
+
+*/
 
 
 
@@ -75,6 +146,6 @@ public class viewOrderController {
 /* SELECT * FROM tablename t WHERE t.status = "NewState"; */
 
 
-}
+
 
 

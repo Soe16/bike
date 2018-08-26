@@ -131,7 +131,7 @@ public class Order{
     */
 
 
-    //constructor
+    //constructor, fehlt hier nicht der owner?
 
     public Order(
             String customer,

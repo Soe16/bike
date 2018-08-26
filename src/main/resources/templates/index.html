@@ -19,15 +19,15 @@
         </form>
 
 
-        <!-- rollen ggf. anpassen mit 0 und co !-->
+        <!-- rollen ggf. anpassen mit 0 und co ! access="hasRole('Customer')  access="hasRole('Deliverer')-->
 
-        <a sec:authorize="authenticated" href="/makeorder" class="pull-right" access="hasRole('Customer')" >Bestellung machen</a>
+        <a sec:authorize="authenticated" href="/makeorder" class="pull-right" >Bestellung machen</a>
 
-        <a sec:authorize="authenticated" href="/orders" class="pull-right" access="hasRole('Deliverer')" >Bestellungen verwalten</a>
+        <a sec:authorize="authenticated" href="/orders" class="pull-right" >Bestellungen verwalten</a>
 
         <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
 
     </div>
 </div>
 </body>
-</html></html>
+</html>

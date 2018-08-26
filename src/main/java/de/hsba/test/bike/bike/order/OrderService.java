@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,13 +21,25 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    /* Beispiel Order für Datenbank Bestellung
+/*
+    // Beispiel Order für Datenbank Bestellung
     @PostConstruct
-    public void init(){
-        createOrder("", "bob", "pass", "bob@mail.de", "Customer", "", "", "", "", "");
+    public void init() {
+
+        if (orderRepository.count() == 0) {
+            //siehe interface
+            createOrder( "1","Peter", "hallo", "12", "22359", "Patrick", "hello", "23", "22359");
+        }
+    }
+    //User user hinzufügen wegen Owner?
+    private void createOrder(String ownerId, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
+        orderRepository.save(new Order(customer, customerStreet, customerNumber, customerZip, deliveree, deliverStreet, deliverNumber, deliverZip));
     }
 
     */
+
+
+
 
 
     //User customer = new User("Bernd", "be@mail.de", "test", "Customer");
@@ -47,4 +60,16 @@ public class OrderService {
         return orderRepository.findById(id).orElse(null);
     }
 
+    public Iterable<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    public List<Order> findNewOrders() {
+        return orderRepository.findNewOrders();
+    }
+
+    /*
+    //neu hinzugefügt
+    public Order findNewOrders (Integer currentState) { return orderRepository.findByCurrentState(currentState);}
+*/
 }

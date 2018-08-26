@@ -9,6 +9,17 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long>{
 
+    @Query(value="SELECT * FROM BESTELLUNG B WHERE B.CURRENT_STATE=0", nativeQuery = true)
+    List<Order> findNewOrders();
+
+
+/*
+    // für eine Beispiel Order benötigt man einen Owner, dass hier war der versuch diesen owener von den usern abzufragen
+        @Query("select u from User u where u.name = 'bob'")
+        User findUser();
+
+        */
+
     /* versuch1
     @Query("select b from bestellung b where b.deliveree = ''")
     List<Order> findOrdersWithoutKurier();
@@ -20,10 +31,27 @@ public interface OrderRepository extends CrudRepository<Order, Long>{
     }
     */
 
+/*
         @Query("select b from bestellung b where b.currentState = 0")
         List<Order> findCurrentState0();
 
+        */
+
+
+
     /* versuch 4
     static List<Order> findByCurrentState(Integer currentState);
+    */
+
+        /*
+    Order getOrderByCurrentState(Integer currentState);
+*/
+/*
+    // https://www.youtube.com/watch?v=kttfBthzIPI
+    List<Order> listAllNewOrders();
+
+
+
+    Order findByCurrentState(Integer currentState);
     */
 }
