@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Fahrradkurierdienst</title>
     <link rel="stylesheet" type="text/css"
@@ -18,12 +20,15 @@
             </button>
         </form>
 
-        <a sec:authorize="Customer" href="/makeorder/" class="pull-right" >Bestellung machen</a>
 
-        <a sec:authorize="Deliverer" href="/orders/" class="pull-right" >Bestellung annhemen</a>
+    </div>
+    <div class="container">
 
-        <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
+        <a sec:authorize="hasRole('Customer')" href="/makeorder" class="btn btn-primary" >Bestellung aufgeben</a>
 
+        <a sec:authorize="hasRole('Deliverer')" href="/orders" class="btn btn-primary" >Bestellung annhemen</a>
+
+        <a sec:authorize="anonymous" href="/login" >Anmelden</a>
     </div>
 </div>
 </body>

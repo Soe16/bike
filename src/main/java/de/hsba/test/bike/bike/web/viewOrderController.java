@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class viewOrderController {
 
 
-    @GetMapping("/")
+    @GetMapping("/orders")
     public String vieworders(){
         return "orders";
     }
