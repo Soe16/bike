@@ -30,7 +30,6 @@ public class UserService {
 
     @PostConstruct
     public void init(){
-
         createUser("bob", "pass", "bob@mail.de", "Customer");
         createUser("mark", "pass","mark@gmail.com", "Customer");
         createUser("john", "pass","john@yahoo.com", "Deliverer");
