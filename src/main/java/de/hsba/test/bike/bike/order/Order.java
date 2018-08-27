@@ -1,30 +1,60 @@
 package de.hsba.test.bike.bike.order;
 
-import de.hsba.test.bike.bike.order.states.*;
+import de.hsba.test.bike.bike.user.User;
 
-public class Order implements OrderState{
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "bestellung") //order ist ein reserviertes sql wort, daher anderer tabellenname
+public class Order{
+
+    @Id
+    @GeneratedValue
+    public Long id;
+
+    @Column(nullable = false)
+    public int currentState; // 0 = new, 1 = accepted, 2 = inDelivery, 3 = Delivered, 4 = Canceled
+
+    @ManyToOne(optional = false)  //Auftraggeber
+    public User owner;
+
+    @ManyToOne   //Kurier
+    public User deliverer;
+
+    @Column(nullable = false)
+    public String customer;
+
+    @Column(nullable = false)
+    public String customerStreet;
+
+    @Column(nullable = false)
+    public String customerNumber;
+
+    @Column(nullable = false)
+    public String customerZip;
+
+    @Column(nullable = false)
+    public String deliveree;
+
+    @Column(nullable = false)
+    public String deliverStreet;
+
+    @Column(nullable = false)
+    public String deliverNumber;
+
+    @Column(nullable = false)
+    public String deliverZip;
 
 
-    //Attribute
-    String id;
-    String deliverer;
-
-    String customer;
-    String customerStreet;
-    String customerNumber;
-    String customerZip;
-
-    String deliveree;
-    String deliverStreet;
-    String deliverNumber;
-    String deliverZip;
-
-    //Attribut-setter
-    public void setId(String newId){
-        id = newId;
-    }
-    public void setDeliverer(String newDeliverer){
+    //setter
+    public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
+    public void setDeliverer(User newDeliverer){
         deliverer = newDeliverer;
+    }
+    public void setOwner(User newOwner){
+        owner = newOwner;
     }
     public void setCustomer(String newCustomer){
         customer = newCustomer;
@@ -51,14 +81,24 @@ public class Order implements OrderState{
         deliverZip = newDeliverZip;
     }
 
-    //Attribut-getter
-    public String getId(){
-        return id;
+/*
+    //von Jakob 08.08
+    private List<Order> orders;
+
+    */
+
+    //getter
+    public Long getId() { return id; }
+    public int getCurrentState(){
+        return currentState;
     }
-    public String getDeliverer(){
+    public User getDeliverer(){
         return deliverer;
     }
-    public String getCustomer(){
+    public User getOwner(){
+        return owner;
+    }
+    public String getCustomer() {
         return customer;
     }
     public String getCustomerStreet(){
@@ -83,57 +123,73 @@ public class Order implements OrderState{
         return deliverZip;
     }
 
-    //Zustände definieren
-    OrderState newState;
-    OrderState acceptedState;
-    OrderState inDeliveryState;
-    OrderState deliveredState;
-    OrderState canceledState;
+    /*
+    //Daten in Array abspeichern von Jakob 08.08
+    public List<Order> getOrders(){
+        if (orders == null) {
+            orders = new ArrayList<>();
+        }
+        return orders;
+    }
+    */
 
-    //gespeicherter Zustand
-    OrderState orderState;
 
     //constructor
-    public Order() {
-        //Zustände initialisieren
-        newState = new NewState(this);
-        acceptedState = new AcceptedState(this);
-        inDeliveryState = new InDeliveryState(this);
-        deliveredState = new DeliveredState(this);
-        canceledState = new CanceledState(this);
 
-        //Ausgangszustand
-        orderState = newState;
+    public Order(
+            String customer,
+            String customerStreet,
+            String customerNumber,
+            String customerZip,
+            String deliveree,
+            String deliverStreet,
+            String deliverNumber,
+            String deliverZip
+    ) {
+        currentState = 0;
+        this.customer = customer;
+        this.customerStreet = customerStreet;
+        this.customerNumber = customerNumber;
+        this.customerZip = customerZip;
+        this.deliveree = deliveree;
+        this.deliverStreet = deliverStreet;
+        this.deliverNumber = deliverNumber;
+        this.deliverZip = deliverZip;
     }
 
+    public Order(){currentState = 0;}
 
-    //State - getter
-    public OrderState getNewState() { return newState; }
-    public OrderState getAcceptedState() { return acceptedState; }
-    public OrderState getInDeliveryState() { return inDeliveryState; }
-    public OrderState getDeliveredState() { return deliveredState; }
-    public OrderState getCanceledState() { return canceledState; }
+    //methoden
 
-    //State - setter
-    public void setOrderState(OrderState newOrderState) {
-        orderState = newOrderState;
+    public void nextState() {
+        if(currentState < 3) {
+            currentState++;
+        }
     }
 
-    //Methoden
-    public void newOrder() {
-        setOrderState(newState);
+    @PrePersist
+    private void onPersist() {
+        this.owner = User.getCurrentUser();
     }
 
-    public String getStatus() {
-        return orderState.getStatus();
-    }
-
-    public void nextStatus() {
-        orderState.nextStatus();
+    public boolean isOwnedByCurrentUser() {
+        return this.owner != null && this.owner.equals(User.getCurrentUser());
     }
 
     public void cancelOrder() {
-        orderState.cancelOrder();
+        if(currentState < 3) {
+            currentState = 4;
+        }
     }
 
+    public String getState() {
+        switch (currentState) {
+            case 0:  return "New order";
+            case 1:  return "The order was accepted by a courier";
+            case 2:  return "The package was picked up by the courier";
+            case 3:  return "The package has been delivered succesfully";
+            case 4:  return "Order canceled.";
+            default: return null;
+        }
+    }
 }

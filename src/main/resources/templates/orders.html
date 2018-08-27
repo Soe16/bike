@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Table V04</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/orderscss.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--===============================================================================================-->
+</head>
+<body>
+
+<img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
+
+<h1>View orders</h1>
+
+<!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
+<h3>Permissions Table</h3>
+<table th:if="${!order.orders.empty}" class="responsive-table-input-matrix">
+    <thead>
+    <tr>
+        <th>Customer ID</th>
+        <th>Customer</th>
+        <th>Street name</th>
+        <th>Street Number</th>
+        <th>ZIP</th>
+        <th>Status</th>
+        <th>Choose Order</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="order : ${order.orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.customer}"></td>
+        <td th:text="${order.deliverStreet}"></td>
+        <td th:text="${order.deliverNumber}"></td>
+        <td th:text="${order.deliverZIP}"></td>
+        <td th:text="${order.currentState}"></td>
+
+        <!-- Daten von jeder gecheckten Reihe in ein Array verpacken und dann in Datenbank Status ändern. !-->
+
+        <td><input type="checkbox" name="" th:checked="${true}"></td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+    <!--
+
+    <tr>
+        <td>Edit</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+    </tr>
+    <tr>
+        <td>Delete</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+    </tr>
+    <tr>
+        <td>Rename</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+    </tr>
+    <tr>
+        <td>Move</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+
+!-->
+
+<button type="submit" class="btn btn-primary">Make a new order</button>
+
+</body>
+</html>
