@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Table V04</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/orderscss.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--===============================================================================================-->
+</head>
+<body>
+
+<img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
+<!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
+<div th:if="${not #lists.isEmpty(customerOrder)}">
+
+
+
+    <h1>View orders</h1>
+
+    <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
+    <h3>New Orders </h3>
+
+    <form th:action="@{/customerOrder}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
+        <table class="responsive-table-input-matrix">
+            <thead>
+            <tr>
+
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Street name</th>
+                <th>Street Number</th>
+                <th>ZIP</th>
+                <th>Deliveree</th>
+                <th>Street name</th>
+                <th>Street Number</th>
+                <th>ZIP</th>
+                <th>Status</th>
+                <th>Choose Order</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="order : ${customerOrder}">
+
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.customer}"></td>
+                <td th:text="${order.customerStreet}"></td>
+                <td th:text="${order.customerNumber}"></td>
+                <td th:text="${order.customerZip}"></td>
+                <td th:text="${order.deliveree}"></td>
+                <td th:text="${order.deliverStreet}"></td>
+                <td th:text="${order.deliverNumber}"></td>
+                <td th:text="${order.deliverZip}"></td>
+                <td th:text="${order.currentState}"></td>
+                <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
+
+
+            </tr>
+
+            </tbody>
+            <button type="submit" name="update" th:text="#{update}" class="btn btn-primary">Make a new order</button>
+
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>

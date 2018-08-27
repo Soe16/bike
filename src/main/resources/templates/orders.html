@@ -24,7 +24,7 @@
 <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
 <h3>New Orders </h3>
 
-    <form action="submitList" method="post" modelAttribute="myObjectForm">
+    <form th:action="@{/orders}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
 <table class="responsive-table-input-matrix">
     <thead>
     <tr>
@@ -55,11 +55,9 @@
         <td th:text="${order.deliverStreet}"></td>
         <td th:text="${order.deliverNumber}"></td>
         <td th:text="${order.deliverZip}"></td>
-        <td><input type="checkbox" name="" th:checked="${true}"></td>
-
-        <!--
         <td th:text="${order.currentState}"></td>
-        !-->
+        <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
+
 
         <!-- Daten von jeder gecheckten Reihe in ein Array verpacken und dann in Datenbank Status ändern. !-->
 
@@ -71,7 +69,7 @@
     </tr>
 
     </tbody>
-    <button type="submit" class="btn btn-primary">Make a new order</button>
+    <button type="submit" name="update" th:text="#{update}" class="btn btn-primary">Make a new order</button>
 
 </table>
     </form>
