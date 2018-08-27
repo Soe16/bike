@@ -47,6 +47,9 @@ public class Order{
     @Column(nullable = false)
     public String deliverZip;
 
+    @Column
+    public String packageType;
+
 
     //setter
     public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
@@ -80,6 +83,7 @@ public class Order{
     public void setDeliverZip(String newDeliverZip){
         deliverZip = newDeliverZip;
     }
+    public void setPackageType(String newPackageType) { packageType = newPackageType; }
 
 /*
     //von Jakob 08.08
@@ -122,6 +126,7 @@ public class Order{
     public String getDeliverZip(){
         return deliverZip;
     }
+    public String getPackageType() { return packageType; }
 
     /*
     //Daten in Array abspeichern von Jakob 08.08
@@ -146,6 +151,7 @@ public class Order{
             String deliverNumber,
             String deliverZip
     ) {
+        packageType = "PAKET_KLEIN";
         currentState = 0;
         this.customer = customer;
         this.customerStreet = customerStreet;
@@ -157,7 +163,10 @@ public class Order{
         this.deliverZip = deliverZip;
     }
 
-    public Order(){currentState = 0;}
+    public Order(){
+        currentState = 0;
+        packageType = "PAKET_KLEIN";
+    }
 
     //methoden
 
