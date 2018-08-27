@@ -25,10 +25,10 @@ public class RegistrationController {
         return "registration";
     }
 
-    @PostMapping
-    public String createUser(String name, String email, String password, String role){
-        User user = userService.createUser(name, email, password, role);
-        return "redirect:/registration" + user.getId();
-    }
+    //@PostMapping
+    //public String createUser(String name, String email, String password, String role){
+    //    User user = userService.createUser(name, email, password, role);
+    //    return "redirect:/registration" + user.getId();
+    //}
 
 }

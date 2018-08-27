@@ -18,7 +18,9 @@
             </button>
         </form>
 
-        <a sec:authorize="authenticated" href="/makeorder" class="pull-right" >Bestellung machen</a>
+        <a sec:authorize="Customer" href="/makeorder/" class="pull-right" >Bestellung machen</a>
+
+        <a sec:authorize="Deliverer" href="/orders/" class="pull-right" >Bestellung annhemen</a>
 
         <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
 

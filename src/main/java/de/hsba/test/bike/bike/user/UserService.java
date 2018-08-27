@@ -37,7 +37,7 @@ public class UserService {
         createUser("admin", "admin","admin@admin.com", "ADMIN");
     }
 
-    private void createUser(String username, String password, String email, String role) {
+    public void createUser(String username, String password, String email, String role) {
         userRepository.save(new User(username, passwordEncoder.encode(password), email, role));
     }
 
