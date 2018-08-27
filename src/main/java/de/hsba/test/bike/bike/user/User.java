@@ -31,6 +31,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+
     @Column(nullable = false)
     private String role;
 
@@ -47,9 +48,6 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -75,10 +73,10 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String password, String email, String role) {
+    public User(String name, String email, String password, String role) {
         this.name = name;
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.role = role;
     }
 
@@ -91,5 +89,6 @@ public class User {
                 "name=" + name + '\'' +
                 '}';
     }
+
 }
 

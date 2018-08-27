@@ -11,7 +11,7 @@ import java.util.List;
 @Transactional
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -30,6 +30,7 @@ public class UserService {
 
     @PostConstruct
     public void init(){
+
         createUser("bob", "pass", "bob@mail.de", "Customer");
         createUser("mark", "pass","mark@gmail.com", "Customer");
         createUser("john", "pass","john@yahoo.com", "Deliverer");
@@ -46,6 +47,13 @@ public class UserService {
 
     public List<User> findUsers() {
         return userRepository.findUsers();
+
+    }
+
+    public User createUser(String name, String email, String password, String role){
+        User user = new User(name,email,password,role);
+        user.setName(name);
+        return userRepository.save(user);
     }
 
 }
