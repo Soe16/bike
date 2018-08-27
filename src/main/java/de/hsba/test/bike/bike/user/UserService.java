@@ -50,10 +50,5 @@ public class UserService {
 
     }
 
-    public User createUser(String name, String email, String password, String role){
-        User user = new User(name,email,password,role);
-        user.setName(name);
-        return userRepository.save(user);
-    }
 
 }
