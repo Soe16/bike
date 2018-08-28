@@ -27,8 +27,9 @@ public class RegistrationController {
 
     @PostMapping
     public String createUser(String name, String email, String password, String role){
-        User user = userService.createUser(name, email, password, role);
-        return "redirect:/registration" + user.getId();
+        //User user = userService.createUser(name, password, email, role);
+        userService.saveUser(new User(name, password, email, role));
+        return "redirect:/";
     }
 
 }
