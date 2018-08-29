@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/makeOrder").hasRole("Customer")
                 .antMatchers("/orders").hasRole("Deliverer")
+                .antMatchers("/courierorderstatus").hasRole("Deliverer")
                 .antMatchers("/customerOrder").hasRole("Customer")
                 .anyRequest().authenticated()
                 .and()

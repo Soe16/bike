@@ -59,17 +59,10 @@
         <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
 
 
-        <!-- Daten von jeder gecheckten Reihe in ein Array verpacken und dann in Datenbank Status ändern. !-->
-
-<!--
-        <td><input type="checkbox" name="" th:checked="${true}"></td>
-
-        !-->
-
     </tr>
 
     </tbody>
-    <button type="submit" name="update" th:text="#{update}" class="btn btn-primary">Make a new order</button>
+    <button type="submit" class="btn btn-primary">Accept Order</button>
 
 </table>
     </form>

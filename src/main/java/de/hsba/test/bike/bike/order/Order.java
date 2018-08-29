@@ -79,10 +79,6 @@ public class Order{
         deliverZip = newDeliverZip;
     }
 
-/*
-    //von Jakob 08.08
-    private List<Order> orders;
-    */
 
     //getter
     public Long getId() { return id; }
@@ -120,18 +116,6 @@ public class Order{
         return deliverZip;
     }
 
-    /*
-    //Daten in Array abspeichern von Jakob 08.08
-    public List<Order> getOrders(){
-        if (orders == null) {
-            orders = new ArrayList<>();
-        }
-        return orders;
-    }
-    */
-
-
-    //constructor, fehlt hier nicht der owner?
 
     public Order(
             String customer,

@@ -7,36 +7,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 
 @Controller
-@RequestMapping("/customerOrder")
-public class CustomerOrderController {
+@RequestMapping("/courierorderstatus")
+public class CourierOrderStatusController {
 
 
     @Autowired
     private OrderRepository orderRepository;
 
-
     @GetMapping
-    public String listOrders(Model model) {
+    public String listOrders(Model model){
 
-            User user = User.getCurrentUser();
-            if (user == null) {
-                throw new ForbiddenException();
-            }
-            long currentUserId = user.getId();
+        User user = User.getCurrentUser();
+        if (user == null) {
+            throw new ForbiddenException();
+        }
+        long currentCourierId = user.getId();
 
-        //veränderncurrentuser!!
-        model.addAttribute("customerOrder", orderRepository.customerOrders(currentUserId));
-//        model.addAttribute("customerOrder", orderRepository.customerOrders(currentUserId));
-        return "customerOrder";
+        model.addAttribute("courierorderstatus", orderRepository.findCourierOrders(currentCourierId));
+
+        return "courierorderstatus";
     }
+
+
+    /* https://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/ für kommendes...
+
+
+
 
     //https://stackoverflow.com/questions/42945495/getting-the-selected-values-from-a-checkbox-list-to-the-controller-with-spring-b
     @PostMapping
@@ -46,17 +46,18 @@ public class CustomerOrderController {
         if (user == null) {
             throw new ForbiddenException();
         }
-        long currentUserId = user.getId();
+        long currentCourierId = user.getId();
 
-        if (idOrders != null) {
-            for (String idOrdersUp : idOrders) {
+
+        if(idOrders != null) {
+            for(String idOrdersUp : idOrders){
                 int id = Integer.parseInt(idOrdersUp);
-                orderRepository.deleteOrder(currentUserId,id);
+                orderRepository.updateOrder(currentCourierId, id);
 
             }
         }
         return "index";
 
-
+        */
     }
-}
+

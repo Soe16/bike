@@ -75,8 +75,11 @@ public class User  {
         this.role = role;
     }
 
+
+    //Konstruktur User auch als Default. hinzugefügt von Jakob
     public User(){
     }
+
 
     public User(String name, String password, String email, String role) {
         this.name = name;
