@@ -79,20 +79,6 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
     }
 */
 
-
-
-
-
-    /*
-    Long currentUserId =
-    */
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String currentUserName = authentication.getName();
-
-    @Autowired
-    Long currentUserId = orderRepository.getCurrentUserId(currentUserName);
-
     /*
     public getCurrentUser(String currentUserName) {
         if (currentUserName != null && !currentUserName.isEmpty())
@@ -104,6 +90,30 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
     }
     */
 
+////////////////////////////////////////
+
+
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentUserName = authentication.getName();
+
+    public Long getCurrentUserName(String currentUserName) {
+        if (currentUserName != null) {
+            Long currentUserId = orderRepository.getCurrentUserId(currentUserName);
+
+            return currentUserId;
+        }
+        else {
+            System.out.println("no current user");
+            return null;
+        }
+        return ;
+    }
+
+
+
+
+
 
     //Owner_ID wird noch benötigt!
 
@@ -112,8 +122,8 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
     public String listOrders(Model model) {
 
         //veränderncurrentuser!!
-        model.addAttribute("customerOrder", orderRepository.customerOrders(currentUserId));
-
+        model.addAttribute("customerOrder", orderRepository.customerOrders());
+//        model.addAttribute("customerOrder", orderRepository.customerOrders(currentUserId));
         return "customerOrder";
     }
 

@@ -12,9 +12,11 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long>{
 
+//evenuell noch '?' zu ? machen!
     //@PreAuthorize("#username == authentication.principal.username")
-    @Query(value="SELECT ID FROM USER U WHERE U.NAME=?", nativeQuery = true)
+    @Query(value="SELECT ID FROM USER U WHERE U.NAME='?'", nativeQuery = true)
     Long getCurrentUserId(String currentUserName);
+
 
     // für den CourierOrderController
 
@@ -32,10 +34,11 @@ public interface OrderRepository extends CrudRepository<Order, Long>{
 
     //Owner_ID muss noch als Variable hinterlegt sein!
     @Query(value="SELECT * FROM BESTELLUNG WHERE OWNER_ID=? AND CURRENT_STATE!=4;", nativeQuery = true)
-    List<Order> customerOrders(Long currentUserId);
+    List<Order> customerOrders();
+    //  List<Order> customerOrders(Long currentUser);
 
     @Modifying
-    @Query(value="DELETE FROM BESTELLUNG WHERE OWNER_ID=? AND ID= ?;", nativeQuery = true)
+    @Query(value="DELETE FROM BESTELLUNG WHERE OWNER_ID=1 AND ID= ?;", nativeQuery = true)
     int deleteOrder(Integer id);
 
     /*
