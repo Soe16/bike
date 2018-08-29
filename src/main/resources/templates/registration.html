@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Fahrradkurierdienst</title>
@@ -12,13 +12,28 @@
         <h1>Fahrradkurierdienst</h1>
 
         <h2>Create Account</h2>
-        <form action="/postOrder" method="post">
-            <input name="name" type="text" placeholder="Name" class="form-control"/>
-            <input name="email" type="email" placeholder="Email" class="form-control"/>
-            <input name="password" type="password" placeholder="Password" class="form-control"/>
-            <input name="confirm" type="password" placeholder="Confirm your password" class="form-control"/>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <form th:action="@{registration}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="name" class="form-control-label">Name</label>
+                <input type="text" class="form-control" th:field="*{name}" id="name">
+                <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:error="*{name}"></div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-control-label">Email</label>
+                <input type="email" class="form-control" th:field="*{email}" id="email">
+                <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:error="*{email}"></div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-control-label">Password</label>
+                <input type="password" class="form-control" th:field="*{password}" id="password">
+                <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:error="*{password}"></div>
+            </div>
+            <div class="form-group">
+                <label for="role" class="form-control-label">Role</label>
+                <input type="text" class="form-control" th:field="*{role}" id="role">
+                <div class="text text-danger" th:if="${#fields.hasErrors('role')}" th:error="*{role}"></div>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary"/>
         </form>
     </div>
 </div>

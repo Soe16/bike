@@ -2,7 +2,6 @@ package de.hsba.test.bike.bike;
 
 
 import de.hsba.test.bike.bike.web.OrderFormAssembler;
-import de.hsba.test.bike.bike.web.UserAssembler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,6 +51,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public OrderFormAssembler orderFormAssembler() { return new OrderFormAssembler(); }
 
-    @Bean
-    public UserAssembler userAssembler(){return new UserAssembler();}
 }
