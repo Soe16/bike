@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class User  {
 
     public static User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -75,6 +75,9 @@ public class User {
         this.role = role;
     }
 
+    public User(){
+    }
+
     public User(String name, String password, String email, String role) {
         this.name = name;
         this.password = password;
@@ -89,4 +92,5 @@ public class User {
                 "name=" + name + '\'' +
                 '}';
     }
+
 }

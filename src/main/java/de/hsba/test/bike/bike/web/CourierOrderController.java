@@ -1,6 +1,8 @@
 package de.hsba.test.bike.bike.web;
 
 import de.hsba.test.bike.bike.order.OrderRepository;
+import de.hsba.test.bike.bike.user.User;
+import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +33,18 @@ public class CourierOrderController {
     //https://stackoverflow.com/questions/42945495/getting-the-selected-values-from-a-checkbox-list-to-the-controller-with-spring-b
     @PostMapping
     public String update(@RequestParam("idChecked") List<String> idOrders) {
-            if(idOrders != null) {
+
+        User user = User.getCurrentUser();
+        if (user == null) {
+            throw new ForbiddenException();
+        }
+        long currentCourierId = user.getId();
+
+
+        if(idOrders != null) {
                 for(String idOrdersUp : idOrders){
                     int id = Integer.parseInt(idOrdersUp);
-                    orderRepository.updateOrder(id);
+                    orderRepository.updateOrder(currentCourierId, id);
 
                 }
             }

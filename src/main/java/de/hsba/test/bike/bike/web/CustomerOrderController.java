@@ -1,9 +1,9 @@
 package de.hsba.test.bike.bike.web;
 
 import de.hsba.test.bike.bike.order.OrderRepository;
+import de.hsba.test.bike.bike.user.User;
+import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,7 +93,7 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
 ////////////////////////////////////////
 
 
-
+/*
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String currentUserName = authentication.getName();
 
@@ -107,11 +107,13 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
             System.out.println("no current user");
             return null;
         }
-        return ;
+        return cu;
     }
 
-
-
+*/
+/*
+long UserID = User.getId()
+*/
 
 
 
@@ -121,8 +123,14 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
     @GetMapping
     public String listOrders(Model model) {
 
+            User user = User.getCurrentUser();
+            if (user == null) {
+                throw new ForbiddenException();
+            }
+            long currentUserId = user.getId();
+
         //veränderncurrentuser!!
-        model.addAttribute("customerOrder", orderRepository.customerOrders());
+        model.addAttribute("customerOrder", orderRepository.customerOrders(currentUserId));
 //        model.addAttribute("customerOrder", orderRepository.customerOrders(currentUserId));
         return "customerOrder";
     }
@@ -130,10 +138,17 @@ if ( SecurityContextHolder.getContext().getAuthentication() != null)
     //https://stackoverflow.com/questions/42945495/getting-the-selected-values-from-a-checkbox-list-to-the-controller-with-spring-b
     @PostMapping
     public String update(@RequestParam("idChecked") List<String> idOrders) {
+
+        User user = User.getCurrentUser();
+        if (user == null) {
+            throw new ForbiddenException();
+        }
+        long currentUserId = user.getId();
+
         if (idOrders != null) {
             for (String idOrdersUp : idOrders) {
                 int id = Integer.parseInt(idOrdersUp);
-                orderRepository.deleteOrder(id);
+                orderRepository.deleteOrder(currentUserId,id);
 
             }
         }
