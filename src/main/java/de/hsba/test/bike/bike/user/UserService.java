@@ -48,4 +48,15 @@ public class UserService {
         return userRepository.findUsers();
     }
 
+    /*
+
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    String username = ((UserDetails)principal).getUsername();
+
+    loadUserByUsername(username)
+        return "username"
+
+        */
+
 }

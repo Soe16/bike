@@ -7,10 +7,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Transactional
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long>{
 
+    //@PreAuthorize("#username == authentication.principal.username")
+    @Query(value="SELECT ID FROM USER U WHERE U.NAME=?", nativeQuery = true)
+    Long getCurrentUserId(String currentUserName);
 
     // für den CourierOrderController
 
@@ -27,11 +31,11 @@ public interface OrderRepository extends CrudRepository<Order, Long>{
     //für CustomerOrderController
 
     //Owner_ID muss noch als Variable hinterlegt sein!
-    @Query(value="SELECT * FROM BESTELLUNG WHERE OWNER_ID=1 AND CURRENT_STATE!=4;", nativeQuery = true)
-    List<Order> customerOrders();
+    @Query(value="SELECT * FROM BESTELLUNG WHERE OWNER_ID=? AND CURRENT_STATE!=4;", nativeQuery = true)
+    List<Order> customerOrders(Long currentUserId);
 
     @Modifying
-    @Query(value="DELETE FROM BESTELLUNG WHERE OWNER_ID=1 AND ID= ?;", nativeQuery = true)
+    @Query(value="DELETE FROM BESTELLUNG WHERE OWNER_ID=? AND ID= ?;", nativeQuery = true)
     int deleteOrder(Integer id);
 
     /*

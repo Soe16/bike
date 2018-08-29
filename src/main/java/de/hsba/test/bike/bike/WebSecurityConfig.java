@@ -5,7 +5,6 @@ import de.hsba.test.bike.bike.web.OrderFormAssembler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/h2-console/**").permitAll() // enable access to the h2-console
                 .antMatchers("/js/**").permitAll() // permit JS resources
+                .antMatchers("/makeOrder").hasRole("Customer")
+                .antMatchers("/orders").hasRole("Deliverer")
+                .antMatchers("/customerOrder").hasRole("Customer")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
