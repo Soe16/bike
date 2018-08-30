@@ -25,4 +25,6 @@ public class UserAdapterService implements UserDetailsService {
 
         return new UserAdapter(user);
     }
+
 }
+

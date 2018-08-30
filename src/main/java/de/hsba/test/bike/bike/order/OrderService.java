@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.util.List;
+
 
 @Service
 @Transactional
@@ -39,15 +41,6 @@ public class OrderService {
     */
 
 
-
-
-
-    //User customer = new User("Bernd", "be@mail.de", "test", "Customer");
-
-    //User deliverer1 = new User("Kuriere 2000 Inc. Co. KG", "test","mail@mail.mail", "Deliverer");
-
-    //User deliverer2 = new User("Deliver Inc. Co. KG", "test","mail23@mail.mail", "Deliverer");
-
     public Order save(Order order) {
         return orderRepository.save(order);
     }
@@ -68,8 +61,5 @@ public class OrderService {
         return orderRepository.findNewOrders();
     }
 
-    /*
-    //neu hinzugefügt
-    public Order findNewOrders (Integer currentState) { return orderRepository.findByCurrentState(currentState);}
-*/
 }
+

@@ -3,6 +3,8 @@ package de.hsba.test.bike.bike.order;
 import de.hsba.test.bike.bike.user.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bestellung") //order ist ein reserviertes sql wort, daher anderer tabellenname
@@ -45,6 +47,9 @@ public class Order{
     @Column(nullable = false)
     public String deliverZip;
 
+    @Column
+    public String packageType;
+
 
     //setter
     public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
@@ -78,6 +83,7 @@ public class Order{
     public void setDeliverZip(String newDeliverZip){
         deliverZip = newDeliverZip;
     }
+    public void setPackageType(String newPackageType) { packageType = newPackageType; }
 
 
     //getter
@@ -115,7 +121,7 @@ public class Order{
     public String getDeliverZip(){
         return deliverZip;
     }
-
+    public String getPackageType() { return packageType; }
 
     public Order(
             String customer,
@@ -127,6 +133,9 @@ public class Order{
             String deliverNumber,
             String deliverZip
     ) {
+
+        packageType = "PAKET_KLEIN";
+
         currentState = 0;
         this.customer = customer;
         this.customerStreet = customerStreet;
@@ -138,7 +147,10 @@ public class Order{
         this.deliverZip = deliverZip;
     }
 
-    public Order(){currentState = 0;}
+    public Order(){
+        currentState = 0;
+        packageType = "PAKET_KLEIN";
+    }
 
     //methoden
 

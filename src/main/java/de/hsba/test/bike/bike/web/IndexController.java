@@ -24,6 +24,7 @@ public class IndexController {
 
     /*User customer = new User("Bernd", "be@mail.de", "test", "Customer");
     User deliverer = new User("Kuriere 2000 Inc. Co. KG", "test","mail@mail.mail", "Deliverer");
+
     Order order = new Order(
             deliverer,
             customer,
@@ -35,6 +36,7 @@ public class IndexController {
             "5",
             "69696"
     );
+
     @GetMapping("/deliverer")
     public String deliverer(Model model) {
         model.addAttribute("deliverer", order.deliverer.getName());

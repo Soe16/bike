@@ -14,14 +14,14 @@
 <body>
 
 <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
+
 <!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
 <div th:if="${not #lists.isEmpty(orders)}">
-
-
 
 <h1>View orders</h1>
 
 <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
+
 <h3>New Orders </h3>
 
     <form th:action="@{/orders}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
@@ -58,16 +58,17 @@
         <td th:text="${order.currentState}"></td>
         <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
 
-
     </tr>
 
     </tbody>
+
     <button type="submit" class="btn btn-primary">Accept Order</button>
 
 </table>
     </form>
 
 </div>
+
 
 </body>
 </html>

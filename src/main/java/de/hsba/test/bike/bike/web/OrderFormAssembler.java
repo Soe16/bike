@@ -28,5 +28,5 @@ public class OrderFormAssembler { //command object pattern (Folien 17 und 80)
         order.setDeliverZip(form.getToZip());
         return order;
     }
-
 }
+

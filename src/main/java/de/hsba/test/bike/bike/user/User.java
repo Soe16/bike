@@ -19,6 +19,14 @@ public class User  {
         return null;
     }
 
+    public static User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserAdapter) {
+            return ((UserAdapter) principal).getUser();
+        }
+        return null;
+    }
+
     @Id @GeneratedValue
     private Long id;
 
@@ -30,6 +38,7 @@ public class User  {
 
     @Column(nullable = false)
     private String email;
+
 
     @Column(nullable = false)
     private String role;
@@ -45,10 +54,6 @@ public class User  {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -88,6 +93,9 @@ public class User  {
         this.role = role;
     }
 
+    public User(){
+    }
+
 
     @Override
     public String toString(){
@@ -95,5 +103,7 @@ public class User  {
                 "name=" + name + '\'' +
                 '}';
     }
+
+}
 
 }
