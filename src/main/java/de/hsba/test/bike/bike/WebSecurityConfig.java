@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -21,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .headers().frameOptions().sameOrigin().and() // allow the h2-console to be used in a frame
                 .authorizeRequests()
+
                     .antMatchers("/").permitAll()
                     .antMatchers("/registration").permitAll()
                     .antMatchers("/success").permitAll()
@@ -28,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/js/**").permitAll() // permit JS resources
                     .antMatchers("/makeOrder").hasRole("Customer")
                     .antMatchers("/orders").hasRole("Deliverer")
+                    .antMatchers("/courierorderstatus").hasRole("Deliverer")
+                    .antMatchers("/customerOrder").hasRole("Customer")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -52,3 +56,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public OrderFormAssembler orderFormAssembler() { return new OrderFormAssembler(); }
 
 }
+

@@ -42,26 +42,22 @@ public class IndexController {
         model.addAttribute("deliverer", order.deliverer.getName());
         return "index";
     }
-
     @GetMapping("/customer")
     public String customer(Model model) {
         model.addAttribute("deliverer", order.customer.getName());
         return "index";
     }
-
     @GetMapping("/status")
     public String status(Model model) {
         String stat = order.getState();
         model.addAttribute("stat", stat);
         return "index";
     }
-
     @GetMapping("/nextState")
     public String nextState(Model model) {
         order.nextState();
         return "index";
     }
-
     @PostMapping("/postOrder")
     public String addOrder(User deliverer, User customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
         order.setDeliverer(deliverer);
@@ -75,7 +71,6 @@ public class IndexController {
         order.setDeliverZip(deliverZip);
         return "redirect:/";
     }
-
     @GetMapping("/cZip")
     public String cZip(Model model) {
         model.addAttribute("cZip", order.getCustomerZip());

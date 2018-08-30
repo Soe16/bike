@@ -9,7 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class User  {
+
+    public static User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserAdapter) {
+            return ((UserAdapter) principal).getUser();
+        }
+        return null;
+    }
 
     public static User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -72,6 +80,12 @@ public class User {
         this.role = role;
     }
 
+
+    //Konstruktur User auch als Default. hinzugefügt von Jakob
+    public User(){
+    }
+
+
     public User(String name, String password, String email, String role) {
         this.name = name;
         this.password = password;
@@ -82,6 +96,7 @@ public class User {
     public User(){
     }
 
+
     @Override
     public String toString(){
         return "User{" +
@@ -91,3 +106,4 @@ public class User {
 
 }
 
+}

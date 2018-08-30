@@ -1,5 +1,6 @@
 package de.hsba.test.bike.bike.user;
 
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,10 +49,12 @@ public class UserService {
         user.setEmail(user.getEmail());
         user.setRole(user.getRole());
         userRepository.save(user);
+
     }
 
     public Iterable<User> findAll() {
         return userRepository.findAll();
+
     }
 
     public List<User> findUsers() {
@@ -67,6 +70,18 @@ public class UserService {
         //User u = userRepository.findByEmail(email);
 
         return false;
+
     }
+
+    /*
+
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    String username = ((UserDetails)principal).getUsername();
+
+    loadUserByUsername(username)
+        return "username"
+
+        */
 
 }

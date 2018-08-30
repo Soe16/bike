@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
+
 @Service
 @Transactional
 public class OrderService {
@@ -20,11 +23,23 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    //User customer = new User("Bernd", "be@mail.de", "test", "Customer");
+/*
+    // Beispiel Order für Datenbank Bestellung
+    @PostConstruct
+    public void init() {
 
-    //User deliverer1 = new User("Kuriere 2000 Inc. Co. KG", "test","mail@mail.mail", "Deliverer");
+        if (orderRepository.count() == 0) {
+            //siehe interface
+            createOrder( "1","Peter", "hallo", "12", "22359", "Patrick", "hello", "23", "22359");
+        }
+    }
+    //User user hinzufügen wegen Owner?
+    private void createOrder(String ownerId, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
+        orderRepository.save(new Order(customer, customerStreet, customerNumber, customerZip, deliveree, deliverStreet, deliverNumber, deliverZip));
+    }
 
-    //User deliverer2 = new User("Deliver Inc. Co. KG", "test","mail23@mail.mail", "Deliverer");
+    */
+
 
     public Order save(Order order) {
         return orderRepository.save(order);
@@ -38,4 +53,13 @@ public class OrderService {
         return orderRepository.findById(id).orElse(null);
     }
 
+    public Iterable<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    public List<Order> findNewOrders() {
+        return orderRepository.findNewOrders();
+    }
+
 }
+

@@ -85,11 +85,6 @@ public class Order{
     }
     public void setPackageType(String newPackageType) { packageType = newPackageType; }
 
-/*
-    //von Jakob 08.08
-    private List<Order> orders;
-
-    */
 
     //getter
     public Long getId() { return id; }
@@ -128,19 +123,6 @@ public class Order{
     }
     public String getPackageType() { return packageType; }
 
-    /*
-    //Daten in Array abspeichern von Jakob 08.08
-    public List<Order> getOrders(){
-        if (orders == null) {
-            orders = new ArrayList<>();
-        }
-        return orders;
-    }
-    */
-
-
-    //constructor
-
     public Order(
             String customer,
             String customerStreet,
@@ -151,7 +133,9 @@ public class Order{
             String deliverNumber,
             String deliverZip
     ) {
+
         packageType = "PAKET_KLEIN";
+
         currentState = 0;
         this.customer = customer;
         this.customerStreet = customerStreet;
