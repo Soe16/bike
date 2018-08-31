@@ -22,9 +22,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /*public User findByEmail(String email){
-        return userRepository.findByEmail(email);
-    }*/
 
     public void saveUser(User user){
         userRepository.save(user);
@@ -40,21 +37,20 @@ public class UserService {
 
     private void createUser(String username, String password, String email, String role) {
         userRepository.save(new User(username, passwordEncoder.encode(password), email, role));
-
     }
+
     public void createNewUser(User user){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setName(user.getName());
         user.setEmail(user.getEmail());
-        user.setRole(user.getRole());
+        user.setRole("Customer");
         userRepository.save(user);
 
     }
 
-    public Iterable<User> findAll() {
+    private List<User> findAll() {
         return userRepository.findAll();
-
     }
 
     public List<User> findUsers() {
@@ -62,12 +58,14 @@ public class UserService {
 
     }
 
-    public List<User> findUserByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
-
-    public boolean isUserPresent(String email){
-        //User u = userRepository.findByEmail(email);
+    //prüft ob der Username schon registriert ist
+    public boolean isUserPresent(String name){
+        List<User> users = this.findAll();
+        for (User user: users){
+            if (user.getName().equals(name)){
+                return true;
+            }
+        }
 
         return false;
 

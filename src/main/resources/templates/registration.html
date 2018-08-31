@@ -12,6 +12,7 @@
         <h1>Fahrradkurierdienst</h1>
 
         <h2>Create Account</h2>
+        <div class="alert alert-danger" th:if="${exist}">Unter diesem Username existtiert bereits ein User.</div>
         <form th:action="@{registration}" th:object="${user}" method="post">
             <div class="form-group">
                 <label for="name" class="form-control-label">Name</label>
@@ -28,11 +29,11 @@
                 <input type="password" class="form-control" th:field="*{password}" id="password">
                 <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:error="*{password}"></div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="role" class="form-control-label">Role</label>
                 <input type="text" class="form-control" th:field="*{role}" id="role">
                 <div class="text text-danger" th:if="${#fields.hasErrors('role')}" th:error="*{role}"></div>
-            </div>
+            </div>-->
             <input type="submit" value="Submit" class="btn btn-primary"/>
         </form>
     </div>

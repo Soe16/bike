@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class User  {
+public class User  implements Comparable<User>{
 
     public static User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -73,7 +73,6 @@ public class User  {
         this.role = role;
     }
 
-
     //Konstruktur User auch als Default. hinzugefügt von Jakob
     public User(){
     }
@@ -86,6 +85,11 @@ public class User  {
         this.role = role;
     }
 
+
+    @Override
+    public int compareTo(User other) {
+        return this.name.compareTo(other.name);
+    }
 
     @Override
     public String toString(){
