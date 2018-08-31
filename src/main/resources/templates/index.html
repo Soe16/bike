@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Fahrradkurierdienst</title>
     <link rel="stylesheet" type="text/css"
@@ -21,13 +22,13 @@
 
         <!-- rollen ggf. anpassen mit 0 und co ! access="hasRole('Customer')  access="hasRole('Deliverer')-->
 
-        <a sec:authorize="authenticated" href="/customerOrder" class="pull-right" >Meine Bestellungen verwalten</a>
+        <a sec:authorize="hasRole('Customer')" href="/customerOrder" class="pull-right" >Meine Bestellungen verwalten</a>
 
-        <a sec:authorize="authenticated" href="/makeorder" class="pull-right" >Bestellung machen</a>
+        <a sec:authorize="hasRole('Customer')" href="/makeorder" class="pull-right" >Bestellung machen</a>
 
-        <a sec:authorize="authenticated" href="/orders" class="pull-right" >Neue Kundenbestellungen</a>
+        <a sec:authorize="hasRole('Deliverer')" href="/orders" class="pull-right" >Neue Kundenbestellungen</a>
 
-        <a sec:authorize="authenticated" href="/courierorderstatus" class="pull-right" >Meine Kurieraufträge</a>
+        <a sec:authorize="hasRole('Deliverer')" href="/courierorderstatus" class="pull-right" >Meine Kurieraufträge</a>
 
         <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
 

@@ -29,9 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/h2-console/**").permitAll() // enable access to the h2-console
                     .antMatchers("/js/**").permitAll() // permit JS resources
                     .antMatchers("/makeOrder").hasRole("Customer")
+                    .antMatchers("/customerOrder").hasRole("Customer")
                     .antMatchers("/orders").hasRole("Deliverer")
                     .antMatchers("/courierorderstatus").hasRole("Deliverer")
-                    .antMatchers("/customerOrder").hasRole("Customer")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()

@@ -39,6 +39,7 @@ public class UserService {
         userRepository.save(new User(username, passwordEncoder.encode(password), email, role));
     }
 
+    //Erstellen eines neuen Users, welcher sich registriert hat
     public void createNewUser(User user){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
