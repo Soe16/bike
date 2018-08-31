@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Fahrradkurierdienst</title>
@@ -8,11 +11,13 @@
 
 </head>
 <body>
-<div>
-    <div class="alert alert-success">
-        Registration success! Please sign in to Continue.
-        <a href="/login">Log In</a>
+<section layout:fragment="content">
+    <div>
+        <div class="alert alert-success">
+            Registration success! Please sign in to Continue.
+            <a href="/login">Log In</a>
+        </div>
     </div>
-</div>
+</section>
 </body>
 </html>

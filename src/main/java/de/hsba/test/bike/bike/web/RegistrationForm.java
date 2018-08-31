@@ -10,7 +10,7 @@ public class RegistrationForm {
     @NotEmpty(message = "Please eneter a valid email.")
     private String email;
 
-    @NotEmpty(message = "Please enter a passowrd.")
+    @NotEmpty(message = "Please enter a password.")
     private String password;
 
     public String getName() {

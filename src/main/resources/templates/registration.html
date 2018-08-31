@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Fahrradkurierdienst</title>
@@ -7,32 +10,35 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container" >
-    <div class="page-header">
-        <h1>Fahrradkurierdienst</h1>
-
-        <h2>Create Account</h2>
-        <div class="alert alert-danger" th:if="${exist}">Unter diesem Username existtiert bereits ein User.</div>
-        <form th:action="@{registration}" th:object="${registrationForm}" method="post">
-            <div class="form-group">
-                <label for="name" class="form-control-label">Username</label>
-                <input type="text" class="form-control" th:field="*{name}" id="name">
-                <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-            </div>
-            <div class="form-group">
-                <label for="email" class="form-control-label">Email</label>
-                <input type="email" class="form-control" th:field="*{email}" id="email">
-                <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-            </div>
-            <div class="form-group">
-                <label for="password" class="form-control-label">Password</label>
-                <input type="password" class="form-control" th:field="*{password}" id="password">
-                <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-            </div>
-            <input type="submit" value="Submit" class="btn btn-primary"/>
-        </form>
+<section layout:fragment="content">
+<div class="col-sm-4 col-sm-offset-4" >
+    <div class="panel panel-default">
+        <div class="panel panel-heading">
+            <h2>Create Account</h2>
+        </div>
+        <div class="panel panel-body">
+            <div class="alert alert-danger" th:if="${exist}">Unter diesem Username existtiert bereits ein User.</div>
+            <form th:action="@{registration}" th:object="${registrationForm}" method="post">
+                <div class="form-group">
+                    <label for="name" class="form-control-label">Username</label>
+                    <input type="text" class="form-control" th:field="*{name}" id="name">
+                    <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-control-label">Email</label>
+                    <input type="email" class="form-control" th:field="*{email}" id="email">
+                    <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-control-label">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" id="password">
+                    <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </form>
+        </div>
     </div>
 </div>
-
+</section>
 </body>
 </html>
