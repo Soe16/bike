@@ -20,24 +20,28 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RegistrationFormAssembler registrationFormAssembler;
+
     @GetMapping("/registration")
     public String registration(Model model){
-        model.addAttribute("user", new User());
+        model.addAttribute("registrationForm", new RegistrationForm());
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerUser(@Valid User user, BindingResult bindingResult, Model model){
+    public String registerUser(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             return "registration";
         }
-        if(userService.isUserPresent(user.getName())) {
+        if(userService.isUserPresent(registrationForm.getName())) {
             model.addAttribute("exist",true);
 
             return "registration";
 
         }
-        userService.createNewUser(user);
+        userService.createNewUser(registrationFormAssembler.update(new User(), registrationForm));
+
         return "success";
     }
 

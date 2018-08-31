@@ -13,27 +13,22 @@
 
         <h2>Create Account</h2>
         <div class="alert alert-danger" th:if="${exist}">Unter diesem Username existtiert bereits ein User.</div>
-        <form th:action="@{registration}" th:object="${user}" method="post">
+        <form th:action="@{registration}" th:object="${registrationForm}" method="post">
             <div class="form-group">
-                <label for="name" class="form-control-label">Name</label>
+                <label for="name" class="form-control-label">Username</label>
                 <input type="text" class="form-control" th:field="*{name}" id="name">
-                <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:error="*{name}"></div>
+                <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
             <div class="form-group">
                 <label for="email" class="form-control-label">Email</label>
                 <input type="email" class="form-control" th:field="*{email}" id="email">
-                <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:error="*{email}"></div>
+                <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
             <div class="form-group">
                 <label for="password" class="form-control-label">Password</label>
                 <input type="password" class="form-control" th:field="*{password}" id="password">
-                <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:error="*{password}"></div>
+                <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
-            <!--<div class="form-group">
-                <label for="role" class="form-control-label">Role</label>
-                <input type="text" class="form-control" th:field="*{role}" id="role">
-                <div class="text text-danger" th:if="${#fields.hasErrors('role')}" th:error="*{role}"></div>
-            </div>-->
             <input type="submit" value="Submit" class="btn btn-primary"/>
         </form>
     </div>
