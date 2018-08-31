@@ -7,9 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class User {
+public class User implements Comparable<User>{
 
     public static User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -22,12 +23,15 @@ public class User {
     @Id @GeneratedValue
     private Long id;
 
+    @NotEmpty(message = "Bitte einen Username eingeben.")
     @Column(unique = true, nullable = false)
     private String name;
 
+    @NotEmpty(message = "Bitte ein Passwort eingeben.")
     @Column(nullable = false)
     private String password;
 
+    @NotEmpty(message = "Bitte eine Email Adresse eingeben.")
     @Column(nullable = false)
     private String email;
 
@@ -88,6 +92,9 @@ public class User {
                 "name=" + name + '\'' +
                 '}';
     }
+
+    @Override
+    public int compareTo(User other){return this.name.compareTo(other.name);}
 
 }
 
