@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <title>Table V04</title>
     <meta charset="UTF-8">
@@ -15,78 +18,67 @@
 
 </head>
 <body>
+<section layout:fragment="content">
+    <div class="container">
+        <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
+        <!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
+        <div th:if="${not #lists.isEmpty(courierorderstatus)}">
+            <h1>View orders</h1>
 
-<img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
-<!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
-<div th:if="${not #lists.isEmpty(courierorderstatus)}">
+            <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
+            <h3>New Orders </h3>
 
+            <form th:action="@{/courierorderstatus}" method="POST" th:object="${courierorderstatus}" modelAttribute="myObjectForm">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Street name</th>
+                        <th scope="col">Street Number</th>
+                        <th scope="col">ZIP</th>
+                        <th scope="col">Deliveree</th>
+                        <th scope="col">Street name</th>
+                        <th scope="col">Street Number</th>
+                        <th scope="col">ZIP</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Change Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- dropdown example https://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/ !-->
+                    <tr th:each="order : ${courierorderstatus}">
+                        <!--
+                        <th scope="row">
+                        !-->
 
-
-    <h1>View orders</h1>
-
-    <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
-    <h3>New Orders </h3>
-
-    <form th:action="@{/courierorderstatus}" method="POST" th:object="${courierorderstatus}" modelAttribute="myObjectForm">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Customer</th>
-                <th scope="col">Street name</th>
-                <th scope="col">Street Number</th>
-                <th scope="col">ZIP</th>
-                <th scope="col">Deliveree</th>
-                <th scope="col">Street name</th>
-                <th scope="col">Street Number</th>
-                <th scope="col">ZIP</th>
-                <th scope="col">Status</th>
-                <th scope="col">Change Status</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <!-- dropdown example https://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/ !-->
-
-            <tr th:each="order : ${courierorderstatus}">
-
-                <!--
-                <th scope="row">
-                !-->
-
-                <td  th:text="${order.id}"></td>
-                <td  th:text="${order.customer}"></td>
-                <td  th:text="${order.customerStreet}"></td>
-                <td  th:text="${order.customerNumber}"></td>
-                <td  th:text="${order.customerZip}"></td>
-                <td  th:text="${order.deliveree}"></td>
-                <td  th:text="${order.deliverStreet}"></td>
-                <td  th:text="${order.deliverNumber}"></td>
-                <td  th:text="${order.deliverZip}"></td>
-                <td  th:text="${order.currentState}"></td>
-                <td>
-                <select id="status" name="country">
-                    <option value="2">Unterwegs</option>
-                    <option value="3">Geliefert</option>
-                </select>
-                </td>
-
-                </th>
-            </tr>
-
-            </tbody>
-
-            <button type="submit" class="btn btn-primary">Delete Order</button>
-
-        </table>
-    </form>
-
-</div>
-
-
+                        <td  th:text="${order.id}"></td>
+                        <td  th:text="${order.customer}"></td>
+                        <td  th:text="${order.customerStreet}"></td>
+                        <td  th:text="${order.customerNumber}"></td>
+                        <td  th:text="${order.customerZip}"></td>
+                        <td  th:text="${order.deliveree}"></td>
+                        <td  th:text="${order.deliverStreet}"></td>
+                        <td  th:text="${order.deliverNumber}"></td>
+                        <td  th:text="${order.deliverZip}"></td>
+                        <td  th:text="${order.currentState}"></td>
+                        <td>
+                        <select id="status" name="country">
+                            <option value="2">Unterwegs</option>
+                            <option value="3">Geliefert</option>
+                        </select>
+                        </td>
+                        </th>
+                    </tr>
+                    </tbody>
+                    <button type="submit" class="btn btn-primary">Delete Order</button>
+                </table>
+            </form>
+        </div>
+    </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+</section>
 </body>
 </html>
