@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:float="http://www.w3.org/1999/xhtml">
 <head>
     <title>Table V04</title>
     <meta charset="UTF-8">
@@ -17,17 +17,16 @@
 <body>
 
 <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
-<!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
+<!-- scheckt ob die Liste leer ist und geht sonst weiter !
 <div th:if="${not #lists.isEmpty(courierorderstatus)}">
+!-->
 
 
-
-    <h1>View orders</h1>
+    <h1>My Customer Orders</h1>
 
     <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
-    <h3>New Orders </h3>
 
-    <form th:action="@{/courierorderstatus}" method="POST" th:object="${courierorderstatus}" modelAttribute="myObjectForm">
+    <form th:action="@{/courierorderstatus}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
         <table class="table">
             <thead class="thead-dark">
             <tr>
@@ -40,19 +39,18 @@
                 <th scope="col">Street name</th>
                 <th scope="col">Street Number</th>
                 <th scope="col">ZIP</th>
+                <th scope="col">Package type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Change Status</th>
             </tr>
             </thead>
             <tbody>
 
+
             <!-- dropdown example https://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/ !-->
 
             <tr th:each="order : ${courierorderstatus}">
 
-                <!--
-                <th scope="row">
-                !-->
 
                 <td  th:text="${order.id}"></td>
                 <td  th:text="${order.customer}"></td>
@@ -63,23 +61,42 @@
                 <td  th:text="${order.deliverStreet}"></td>
                 <td  th:text="${order.deliverNumber}"></td>
                 <td  th:text="${order.deliverZip}"></td>
+                <td  th:text="${order.packageType}"></td>
                 <td  th:text="${order.currentState}"></td>
+                <td> <button th:name="button" th:value="${order.id}" type="submit" class="btn btn-primary">Next Status</button>
+
+               <!-- <td> <button type="submit" name="${order.id}" th:value="${order.id}" class="btn btn-primary">Next Status</button> </td> !-->
+
+
+                <!--           <form th:action="${'/courierorderstatus' + order.id}" method="post" th:object="${courierorderstatus}" modelAttribute="myObjectForm">
+                <td> <button type="submit" name="changestatus" th:value="${order.id}" class="btn btn-primary">Next Status</button> </td>
+                </form> !-->
+
+
+                <!-- Option B
                 <td>
-                <select id="status" name="country">
+                <select id="status" name="Status">
                     <option value="2">Unterwegs</option>
                     <option value="3">Geliefert</option>
                 </select>
                 </td>
+                !-->
 
                 </th>
             </tr>
 
+            </div>
+
             </tbody>
 
-            <button type="submit" class="btn btn-primary">Delete Order</button>
 
+
+            <!--
+            <button type="submit" class="btn btn-primary">Change Status</button>
+            !-->
         </table>
     </form>
+
 
 </div>
 

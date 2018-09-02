@@ -51,7 +51,7 @@ public class CustomerOrderController {
         if (idOrders != null) {
             for (String idOrdersUp : idOrders) {
                 int id = Integer.parseInt(idOrdersUp);
-                orderRepository.deleteOrder(currentUserId,id);
+                orderRepository.cancelOrder(currentUserId,id);
 
             }
         }

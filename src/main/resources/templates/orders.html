@@ -38,6 +38,7 @@
         <th>Street name</th>
         <th>Street Number</th>
         <th>ZIP</th>
+        <th>Package type</th>
         <th>Status</th>
         <th>Choose Order</th>
     </tr>
@@ -55,6 +56,7 @@
         <td th:text="${order.deliverStreet}"></td>
         <td th:text="${order.deliverNumber}"></td>
         <td th:text="${order.deliverZip}"></td>
+        <td th:text="${order.packageType}"></td>
         <td th:text="${order.currentState}"></td>
         <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
 

@@ -25,27 +25,27 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     //für den CourierOrderStatusController
 
-    //alle eigenen Aufträge ansehen
-    @Query(value = "SELECT * FROM BESTELLUNG B WHERE B.DELIVERER_ID = ?", nativeQuery = true)
+    //alle eigenen Aufträge ansehen, welche nicht abgeschlossen und storniert sind.
+    @Query(value = "SELECT * FROM BESTELLUNG B WHERE CURRENT_STATE < 3 AND B.DELIVERER_ID = ?", nativeQuery = true)
     List<Order> findCourierOrders(Long courierId);
 
 
-    /* modifizieren um neuen status zu bekommen
+    // Update Statement um den nächsten Status zu erreichen.
     @Modifying
-    @Query(value = "UPDATE BESTELLUNG SET CURRENT_STATE= 1, DELIVERER_ID=? WHERE ID= ?", nativeQuery = true)
-    int updateOrder(Long currentCourierId, Integer id);
-    */
+    @Query(value = "UPDATE BESTELLUNG SET CURRENT_STATE= CURRENT_STATE + 1 WHERE ID= ?", nativeQuery = true)
+    int updateStatus(Long orderId);
 
 
 
     //für CustomerOrderController
 
-    //Owner_ID muss noch als Variable hinterlegt sein!
-    @Query(value = "SELECT * FROM BESTELLUNG WHERE OWNER_ID=? AND CURRENT_STATE!=4;", nativeQuery = true)
+    // alle noch nicht abgeschlossenen Aufträge
+    @Query(value = "SELECT * FROM BESTELLUNG WHERE OWNER_ID=? AND CURRENT_STATE < 3;", nativeQuery = true)
     List<Order> customerOrders(Long currentUserId);
 
+    // Update Statement um zu stornieren
     @Modifying
-    @Query(value = "DELETE FROM BESTELLUNG WHERE OWNER_ID=? AND ID= ?;", nativeQuery = true)
-    int deleteOrder(Long currentUserId, Integer id);
+    @Query(value = "UPDATE BESTELLUNG SET CURRENT_STATE= 4 WHERE OWNER_ID=? AND ID= ?;", nativeQuery = true)
+    int cancelOrder(Long currentUserId, Integer id);
 
 }
