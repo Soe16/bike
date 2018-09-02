@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <form th:action="${'/editorder/' + order.id}" method="post" th:object="${orderForm}" class="form-inline">
+        <span>From Address</span>
+        <input name="fromName" type="text" placeholder="Name"
+               class="form-control" th:field="*{fromName}" th:readonly="${order.currentState > 0}"/>
+        <input name="fromStreetName" type="text" placeholder="Street name"
+               class="form-control" th:field="*{fromStreetName}" th:readonly="${order.currentState > 0}"/>
+        <input name="fromStreetNumber" type="number" placeholder="Street number"
+               class="form-control" th:field="*{fromStreetNumber}" th:readonly="${order.currentState > 0}"/>
+        <input name="fromZip" type="number" placeholder="ZIP"
+               class="form-control" th:field="*{fromZip}" th:readonly="${order.currentState > 0}"/>
+        <span>To Address</span>
+        <input name="toName" type="text" placeholder="Name"
+               class="form-control" th:field="*{toName}" th:readonly="${order.currentState > 1}"/>
+        <input name="toStreetName" type="text" placeholder="Street name"
+               class="form-control" th:field="*{toStreetName}" th:readonly="${order.currentState > 1}"/>
+        <input name="toStreetNumber" type="number" placeholder="Street number"
+               class="form-control" th:field="*{toStreetNumber}" th:readonly="${order.currentState > 1}"/>
+        <input name="toZip" type="number" placeholder="ZIP"
+               class="form-control" th:field="*{toZip}" th:readonly="${order.currentState > 1}"/>
+        <button type="submit" class="btn btn-primary">Edit my Order</button>
+    </form>
+
+    <form th:action="${'/order/' + order.id + '/cancel'}" method="post" class="form">
+        <button type="submit" class="btn btn-danger">Stornieren</button>
+    </form>
+
+</div>
+</body>
+</html>
