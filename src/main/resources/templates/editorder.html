@@ -26,8 +26,11 @@
         <button type="submit" class="btn btn-primary">Edit my Order</button>
     </form>
 
-    <form th:action="${'/order/' + order.id + '/cancel'}" method="post" class="form">
-        <button type="submit" class="btn btn-danger">Stornieren</button>
+    <form th:action="${'/editorder/' + order.id + '/cancel'}" method="post" class="form">
+
+            <span th:if="${order.currentState == 0}"><button type="submit" class="btn btn-danger">Stornieren</button></span>
+            <span th:unless="${order.currentState > 0}"></span>
+
     </form>
 
 </div>

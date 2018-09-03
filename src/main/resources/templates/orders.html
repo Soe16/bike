@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
@@ -8,44 +8,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../static/orderscss.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
 </head>
 <body>
 <section layout:fragment="content">
 <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
 
-<!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
+<!-- scheckt ob die Liste leer ist und geht sonst weiter
 <div th:if="${not #lists.isEmpty(orders)}">
+!-->
 
-<h1>View orders</h1>
-
-<!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
-
-<h3>New Orders </h3>
+<h1>New Orders </h1>
 
     <form th:action="@{/orders}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
-<table class="responsive-table-input-matrix">
-    <thead>
-    <tr>
-
-        <th>Order ID</th>
-        <th>Customer</th>
-        <th>Street name</th>
-        <th>Street Number</th>
-        <th>ZIP</th>
-        <th>Deliveree</th>
-        <th>Street name</th>
-        <th>Street Number</th>
-        <th>ZIP</th>
-        <th>Package type</th>
-        <th>Status</th>
-        <th>Choose Order</th>
-    </tr>
-    </thead>
+        <table class="table table-bordered">
+            <tr class="bg-primary">
+                <th scope="col">Order ID</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Street name</th>
+                <th scope="col">Street Number</th>
+                <th scope="col">ZIP</th>
+                <th scope="col">Deliveree</th>
+                <th scope="col">Street name</th>
+                <th scope="col">Street Number</th>
+                <th scope="col">ZIP</th>
+                <th scope="col">Package type</th>
+                <th scope="col">Choose Order</th>
+            </tr>
     <tbody>
 
     <tr th:each="order : ${orders}">
@@ -60,17 +50,21 @@
         <td th:text="${order.deliverNumber}"></td>
         <td th:text="${order.deliverZip}"></td>
         <td th:text="${order.packageType}"></td>
-        <td th:text="${order.currentState}"></td>
         <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
 
     </tr>
 
     </tbody>
 
-    <button type="submit" class="btn btn-primary">Accept Order</button>
+</table>
+        <button type="submit" class="btn btn-primary" style="float: right;">Accept Order</button>
+    </form>
 
-</table></form>
-</div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 </section>
 </body>
 </html>

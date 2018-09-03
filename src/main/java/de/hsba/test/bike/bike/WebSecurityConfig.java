@@ -1,3 +1,4 @@
+
 package de.hsba.test.bike.bike;
 
 
@@ -23,23 +24,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin().and() // allow the h2-console to be used in a frame
                 .authorizeRequests()
 
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/registration").permitAll()
-                    .antMatchers("/success").permitAll()
-                    .antMatchers("/h2-console/**").permitAll() // enable access to the h2-console
-                    .antMatchers("/js/**").permitAll() // permit JS resources
-                    .antMatchers("/makeorder").hasRole("Customer")
-                    .antMatchers("/customerOrder").hasRole("Customer")
-                    .antMatchers("/orders").hasRole("Deliverer")
-                    .antMatchers("/courierorderstatus").hasRole("Deliverer")
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/success").permitAll()
+                .antMatchers("/h2-console/**").permitAll() // enable access to the h2-console
+                .antMatchers("/js/**").permitAll() // permit JS resources
+                .antMatchers("/static/**").permitAll()
+                .antMatchers("/makeOrder").hasRole("Customer")
+                .antMatchers("/customerOrder").hasRole("Customer")
+                .antMatchers("/orders").hasRole("Deliverer")
+                .antMatchers("/courierorderstatus").hasRole("Deliverer")
+                .antMatchers("/finishedCourierOrder").hasRole("Deliverer")
+                .antMatchers("/finishedCustomerOrder").hasRole("Customer")
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .permitAll()
+                .and()
                 .logout()
-                    .permitAll();
+                .permitAll();
     }
 
     @Bean

@@ -1,10 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
+    <title>Table V04</title>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+!-->
+
 </head>
 <body>
-$END$
+<section layout:fragment="content">
+    <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="150" width="150" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
+    <!-- scheckt ob die Liste leer ist und geht sonst weiter !
+    <div th:if="${not #lists.isEmpty(customerOrder)}">
+!-->
+    <h1>My completed orders </h1>
+    <form th:action="@{/finishedCustomerOrder}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
+        <table class="table table-bordered">
+            <tr class="bg-primary">
+
+                <th scope="col">Order ID</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Street name</th>
+                <th scope="col">Street Number</th>
+                <th scope="col">ZIP</th>
+                <th scope="col">Deliveree</th>
+                <th scope="col">Street name</th>
+                <th scope="col">Street Number</th>
+                <th scope="col">ZIP</th>
+                <th scope="col">Package type</th>
+                <th scope="col">Status</th>
+            </tr>
+            <tbody>
+
+            <tr th:each="order : ${finishedCustomerOrder}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.customer}"></td>
+                <td th:text="${order.customerStreet}"></td>
+                <td th:text="${order.customerNumber}"></td>
+                <td th:text="${order.customerZip}"></td>
+                <td th:text="${order.deliveree}"></td>
+                <td th:text="${order.deliverStreet}"></td>
+                <td th:text="${order.deliverNumber}"></td>
+                <td th:text="${order.deliverZip}"></td>
+                <td th:text="${order.packageType}"></td>
+                <td>
+                    <span th:if="${order.currentState == 3}">Completed</span>
+                    <span th:if="${order.currentState == 4}">Canceled</span>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </form>
+</section>
 </body>
 </html>
