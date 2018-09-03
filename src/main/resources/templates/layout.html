@@ -1,0 +1,39 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>Fahrradkurrier</title>
+</head>
+<body>
+<nav class="navbar navbar-default" th:fragment="header">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Fahrradkurrier</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a sec:authorize="hasRole('Customer')" href="/customerOrder" >Meine Bestellungen verwalten</a></li>
+            <li><a sec:authorize="hasRole('Customer')" href="/makeorder" >Neue Bestellung aufgeben</a></li>
+            <li><a sec:authorize="hasRole('Deliverer')" href="/orders" >Neue Kundenbestellungen</a></li>
+            <li><a sec:authorize="hasRole('Deliverer')" href="/courierorderstatus" >Meine Kurieraufträge</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" sec:authorize="authenticated">
+            <li>
+                <a href="#"><span th:text="${#httpServletRequest.remoteUser}"/></a>
+            </li>
+            <li>
+                <a href="#" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section layout:fragment="content">
+
+</section>
+<footer layout:fragment="footer"></footer>
+</body>
+</html>

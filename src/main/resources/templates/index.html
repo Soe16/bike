@@ -1,38 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <title>Fahrradkurierdienst</title>
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet"  href="../static/indexCss.css">
+    <link rel="stylesheet" media="screen" th:href="@{/static/indexCss.css}"/>
 </head>
-<body>
-<div class="container">
-    <div class="page-header">
-        <h1>Fahrradkurierdienst</h1>
+<body >
 
-        <form sec:authorize="authenticated"
-              action="/logout" class="pull-right" method="post">
-            <button type="submit" class="btn btn-xs btn-link">
-                <span th:text="${#httpServletRequest.remoteUser}" />
-                abmelden
-            </button>
-        </form>
-
-
-        <!-- rollen ggf. anpassen mit 0 und co ! access="hasRole('Customer')  access="hasRole('Deliverer')-->
-
-        <a sec:authorize="hasRole('Customer')" href="/customerOrder" class="pull-right" >Meine Bestellungen verwalten</a>
-
-        <a sec:authorize="hasRole('Customer')" href="/makeorder" class="pull-right" >Bestellung machen</a>
-
-        <a sec:authorize="hasRole('Deliverer')" href="/orders" class="pull-right" >Neue Kundenbestellungen</a>
-
-        <a sec:authorize="hasRole('Deliverer')" href="/courierorderstatus" class="pull-right" >Meine Kurieraufträge</a>
-
-        <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
-
+<section layout:fragment="content">
+    <div sec:authorize="anonymous" class="col-sm-4 col-sm-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="text-align: center">
+                <h3>Willkommmen</h3>
+            </div>
+            <div class="panel-body" style="text-align: center">
+                <p>Schön, dass du es auf unsere Seite geschafft hast.<br>
+                    Melde dich als Kurier oder Kunde an.<br>
+                    Falls du noch kein Kunde von uns bist, kannst du dich unten registrieren.
+                </p>
+                <a href="/login" class="btn btn-info" role="button">Anmelden</a>
+                <a href="/registration" class="btn btn-info" role="button">Registrieren</a>
+            </div>
+        </div>
     </div>
-</div>
+    <div sec:authorize="authenticated" class="col-sm-4 col-sm-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="text-align: center">
+                <h3>Hallo <span th:text="${#httpServletRequest.remoteUser}"/>,</h3>
+            </div>
+            <div class="panel-body" >
+                <p>Viel Spaß auf unserer Seite.<br>
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+                        et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                        Lorem ipsum dolor sit amet
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
