@@ -52,6 +52,11 @@ public class Order{
 
 
     //setter
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setCurrentState(int newCurrentState) { currentState = newCurrentState; }
     public void setDeliverer(User newDeliverer){
         deliverer = newDeliverer;

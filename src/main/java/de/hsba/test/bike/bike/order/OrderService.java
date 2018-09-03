@@ -2,7 +2,7 @@ package de.hsba.test.bike.bike.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-/*
+    /*
     // Beispiel Order für Datenbank Bestellung
     @PostConstruct
     public void init() {
@@ -36,9 +36,9 @@ public class OrderService {
     //User user hinzufügen wegen Owner?
     private void createOrder(String ownerId, String customer, String customerStreet, String customerNumber, String customerZip, String deliveree, String deliverStreet, String deliverNumber, String deliverZip) {
         orderRepository.save(new Order(customer, customerStreet, customerNumber, customerZip, deliveree, deliverStreet, deliverNumber, deliverZip));
-    }
+    }*/
 
-    */
+
 
 
     public Order save(Order order) {
