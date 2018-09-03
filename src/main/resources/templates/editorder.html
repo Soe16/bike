@@ -23,11 +23,19 @@
                class="form-control" th:field="*{toStreetNumber}" th:readonly="${order.currentState > 1}"/>
         <input name="toZip" type="number" placeholder="ZIP"
                class="form-control" th:field="*{toZip}" th:readonly="${order.currentState > 1}"/>
+        <select name="packageType" class="form-control" th:field="*{packageType}" th:disabled="${order.currentState > 0}">
+            <option value="BRIEF_STDRD">Brief Standard  -  max. 25 x 15 x 1cm    & 50g</option>
+            <option value="BRIEF_GROẞ">Brief Groß      -  max. 35 x 25 x 3 cm   & 500g</option>
+            <option value="PAKET_KLEIN">Paket Klein     -  max. 60 x 30 x 15 cm  & 2kg</option>
+            <option value="PAKET_STDRD">Paket Standard  -  max. 120 x 60 x 60 cm & 5kg</option>
+            <option value="PAKET_GROẞ">Paket Groß      -  max. 120 x 60 x 60 cm & 15kg</option>
+            <option value="PAKET_MAXI">Paket Maxi      -  max. 120 x 60 x 60 cm & 35kg</option>
+        </select>
         <button type="submit" class="btn btn-primary">Edit my Order</button>
     </form>
 
     <form th:action="${'/order/' + order.id + '/cancel'}" method="post" class="form">
-        <button type="submit" class="btn btn-danger">Stornieren</button>
+        <button type="submit" th:class="${order.currentState == 0 ? 'btn btn-danger' : 'btn btn-danger disabled'}">Stornieren</button>
     </form>
 
 </div>

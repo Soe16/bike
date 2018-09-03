@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <title>Table V04</title>
     <meta charset="UTF-8">
@@ -10,68 +13,213 @@
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <!--===============================================================================================-->
+
+
+    <style>
+        /* apply a natural box layout model to all elements */
+        *, *:before, *:after {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .steps {
+            margin:0 0 20px;
+            padding:0;
+            list-style:none;
+            overflow:hidden;
+        }
+        .steps li {float:left;position:relative;}
+        .wrap {float:left}
+        .num {
+            width:30px;
+            height:30px;
+            line-height:30px;
+            border-radius:50%;
+            background:green;
+            color:#000;
+            font-weight:bold;
+            text-align:center;
+            float:left;
+            position:relative;
+            margin:0 4px 0 0;
+        }
+        .num b, .steps p span {position:relative;z-index:2;}
+        .num:after {
+            content:" ";
+            width: 0;
+            height: 0;
+            border-top: 14px solid #fff;
+            border-bottom: 14px solid #fff;
+            border-left: 14px solid green;
+            position:absolute;
+            right:-4px;
+            top:1px;
+        }
+        .steps p {
+            background:#fff;
+            margin:0;
+            float:left;
+            height:30px;
+            line-height:14px;
+            font-size:10px;
+            width:15em;
+            padding:0 25px 0 15px;
+            text-align:center;
+        }
+        /* closed */
+        .closed .num:after {border-left-color:#000}
+        .closed .num {color:#fff;background:#000}
+        .closed .num.last:after {display:none}
+        /* open */
+        .open .num:after {
+            border-left-color:#ccc;
+            border-top-color:transparent;
+            border-bottom-color:transparent;
+            z-index:1;
+        }
+        .open .num:before {
+            width: 0;
+            height: 0;
+            content:" ";
+            position:absolute;
+            border-top: 15px solid #fff;
+            border-bottom: 15px solid #fff;
+            border-left: 15px solid green;
+            position:absolute;
+            right:-5px;
+            top:0;
+            z-index:0;
+        }
+        .open .num {background:#ccc;}
+        .open .wrap {border-radius:15px 0 0 15px;border:1px solid green}
+        li.open:after {
+            content:" ";
+            width: 0;
+            height: 0;
+            border-top: 16px solid #fff;
+            border-bottom: 16px solid #fff;
+            border-left: 15px solid green;
+            position:absolute;
+            right:0;
+            top:0;
+            z-index:0;
+        }
+        li.open:before {
+            width: 0;
+            height: 0;
+            content:" ";
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 14px solid #fff;
+            position:absolute;
+            right:1px;
+            top:1px;
+            z-index:1;
+        }
+    </style>
+
+
 </head>
 <body>
+<section layout:fragment="content">
+    <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
+    <!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
+    <div th:if="${not #lists.isEmpty(customerOrder)}">
+        <h1>View orders</h1>
+        <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
+        <h3>New Orders </h3>
+        <form th:action="@{/customerOrder}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
+            <table class="responsive-table-input-matrix">
+                <thead>
+                <tr>
 
-<img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
-<!-- scheckt ob die Liste leer ist und geht sonst weiter ! !-->
-<div th:if="${not #lists.isEmpty(customerOrder)}">
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Street name</th>
+                    <th>Street Number</th>
+                    <th>ZIP</th>
+                    <th>Deliveree</th>
+                    <th>Street name</th>
+                    <th>Street Number</th>
+                    <th>ZIP</th>
+                    <th>Status</th>
+                    <th>Choose Order</th>
+                </tr>
+                </thead>
+                <tbody>
 
-
-
-    <h1>View orders</h1>
-
-    <!--anpassen an unseren Fall sonst so http://www.java2s.com/Tutorial/Java/0400__Servlet/ReaddatafromDatabaseanddisplayitinaHTMLtable.htm !-->
-    <h3>New Orders </h3>
-
-    <form th:action="@{/customerOrder}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
-        <table class="responsive-table-input-matrix">
-            <thead>
-            <tr>
-
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Street name</th>
-                <th>Street Number</th>
-                <th>ZIP</th>
-                <th>Deliveree</th>
-                <th>Street name</th>
-                <th>Street Number</th>
-                <th>ZIP</th>
-                <th>Package type</th>
-                <th>Status</th>
-                <th>Choose Order</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="order : ${customerOrder}">
-
-                <td th:text="${order.id}"></td>
-                <td th:text="${order.customer}"></td>
-                <td th:text="${order.customerStreet}"></td>
-                <td th:text="${order.customerNumber}"></td>
-                <td th:text="${order.customerZip}"></td>
-                <td th:text="${order.deliveree}"></td>
-                <td th:text="${order.deliverStreet}"></td>
-                <td th:text="${order.deliverNumber}"></td>
-                <td th:text="${order.deliverZip}"></td>
-                <td th:text="${order.packageType}"></td>
-                <td th:text="${order.currentState}"></td>
-                <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
-
-
-            </tr>
-
-            </tbody>
+                <tr th:each="order : ${customerOrder}">
+                    <td><a th:href="@{'/editorder/' + ${order.id}}">Edit</a></td>
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.customer}"></td>
+                    <td th:text="${order.customerStreet}"></td>
+                    <td th:text="${order.customerNumber}"></td>
+                    <td th:text="${order.customerZip}"></td>
+                    <td th:text="${order.deliveree}"></td>
+                    <td th:text="${order.deliverStreet}"></td>
+                    <td th:text="${order.deliverNumber}"></td>
+                    <td th:text="${order.deliverZip}"></td>
+                    <td th:text="${order.currentState}"></td>
+                    <td>
+                        <ol class="steps">
+                            <li th:if="${order.currentState == 0}" class="open">
+                                <div class="wrap">
+                                    <div class="num"><b>0</b></div>
+                                    <p><span>We have received your order.</span></p>
+                                </div>
+                            </li>
+                            <li th:if="${order.currentState > 0}">
+                                <div class="num"><b>0</b></div>
+                            </li>
 
 
-            <button type="submit" class="btn btn-primary">Cancel Order</button>
+                            <li th:if="${order.currentState == 0}" class="closed">
+                                <div class="num"><b>1</b></div>
+                            </li>
+                            <li th:if="${order.currentState == 1}" class="open">
+                                <div class="wrap">
+                                    <div class="num"><b>1</b></div>
+                                    <p><span>Your order was accepted.</span></p>
+                                </div>
+                            </li>
+                            <li th:if="${order.currentState > 1}">
+                                <div class="num"><b>1</b></div>
+                            </li>
 
-        </table>
-    </form>
 
-</div>
+                            <li th:if="${order.currentState == 2}" class="open">
+                                <div class="wrap">
+                                    <div class="num"><b>2</b></div>
+                                    <p><span>Your order is in delivery.</span></p>
+                                </div>
+                            </li>
+                            <li th:if="${order.currentState == 3}">
+                                <div class="num"><b>2</b></div>
+                            </li>
+                            <li th:if="${order.currentState < 2}" class="closed">
+                                <div class="num"><b>2</b></div>
+                            </li>
 
+
+                            <li th:if="${order.currentState == 3}" class="open">
+                                <div class="wrap">
+                                    <div class="num"><b>3</b></div>
+                                    <p><span>Your order was successfully delivered.</span></p>
+                                </div>
+                            </li>
+                            <li th:if="${order.currentState < 3}" class="closed">
+                                <div class="num last"><b>3</b></div>
+                            </li>
+                        </ol>
+                    </td>
+                    <td><input type="checkbox" th:name="idChecked" th:value="${order.id}"></td>
+                </tr>
+                </tbody>
+                <button type="submit" class="btn btn-primary">Delete Order</button>
+
+            </table>
+        </form>
+    </div>
+</section>
 </body>
 </html>

@@ -14,6 +14,7 @@ public class OrderFormAssembler { //command object pattern (Folien 17 und 80)
         form.setToStreetName(order.getDeliverStreet());
         form.setToStreetNumber(order.getDeliverNumber());
         form.setToZip(order.getDeliverZip());
+        form.setPackageType(order.getPackageType());
         return form;
     }
 
@@ -26,6 +27,7 @@ public class OrderFormAssembler { //command object pattern (Folien 17 und 80)
         order.setDeliverStreet(form.getToStreetName());
         order.setDeliverNumber(form.getToStreetNumber());
         order.setDeliverZip(form.getToZip());
+        order.setPackageType(form.getPackageType());
         return order;
     }
 }
