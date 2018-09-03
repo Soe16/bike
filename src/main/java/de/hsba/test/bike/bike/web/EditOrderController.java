@@ -1,20 +1,24 @@
 package de.hsba.test.bike.bike.web;
 
 import de.hsba.test.bike.bike.order.Order;
+import de.hsba.test.bike.bike.order.OrderRepository;
 import de.hsba.test.bike.bike.order.OrderService;
 import de.hsba.test.bike.bike.user.UserService;
 import de.hsba.test.bike.bike.web.exceptions.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/editorder/{id}")
 public class EditOrderController {
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     private final OrderService orderService;
 
@@ -55,7 +59,19 @@ public class EditOrderController {
 
     @PostMapping(path = "/cancel")
     public String cancel(@PathVariable("id") Long id) {
-
+       orderRepository.cancelOrder(id);
        return "redirect:/customerOrder";
     }
+
+
+/*
+    @PostMapping
+    public String update(@RequestParam("button") Long orderId) {
+        orderRepository.cancelOrder(orderId);
+        return "redirect:/customOrder";
+    }
+
+    */
+
 }
+

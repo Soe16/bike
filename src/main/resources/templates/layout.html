@@ -16,10 +16,13 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-            <li><a sec:authorize="hasRole('Customer')" href="/customerOrder" >Meine Bestellungen verwalten</a></li>
-            <li><a sec:authorize="hasRole('Customer')" href="/makeorder" >Neue Bestellung aufgeben</a></li>
-            <li><a sec:authorize="hasRole('Deliverer')" href="/orders" >Neue Kundenbestellungen</a></li>
-            <li><a sec:authorize="hasRole('Deliverer')" href="/courierorderstatus" >Meine Kurieraufträge</a></li>
+            <li><a sec:authorize="hasRole('Customer')" href="/customerOrder" >Manage Orders</a></li>
+            <li><a sec:authorize="hasRole('Customer')" href="/makeorder" >Create A New Order</a></li>
+            <li><a sec:authorize="hasRole('Deliverer')" href="/orders" >New Customer Orders</a></li>
+            <li><a sec:authorize="hasRole('Deliverer')" href="/courierorderstatus" >Manage Orders</a></li>
+            <li><a sec:authorize="hasRole('Deliverer')" href="/finishedCourierOrder" >Completed Orders</a></li>
+            <li><a sec:authorize="hasRole('Customer')" href="/finishedCustomerOrder" >Completed Orders</a></li>
+
         </ul>
         <ul class="nav navbar-nav navbar-right" sec:authorize="authenticated">
             <li>

@@ -45,7 +45,18 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     // Update Statement um zu stornieren
     @Modifying
-    @Query(value = "UPDATE BESTELLUNG SET CURRENT_STATE= 4 WHERE OWNER_ID=? AND ID= ?;", nativeQuery = true)
-    int cancelOrder(Long currentUserId, Integer id);
+    @Query(value = "UPDATE BESTELLUNG SET CURRENT_STATE= 4 WHERE ID= ?;", nativeQuery = true)
+    int cancelOrder(Long id);
 
+
+    //für alle abgeschlossenen bzw. stornierten Aufträge
+
+    //Customer-> abgeschlossene Aufträge
+    @Query(value = "SELECT * FROM BESTELLUNG WHERE OWNER_ID=? AND CURRENT_STATE > 2;", nativeQuery = true)
+    List<Order> finishedCustomerOrders(Long currentUserId);
+
+    //Kurier-> abgeschlossene Aufträge
+    @Query(value = "SELECT * FROM BESTELLUNG WHERE DELIVERER_ID=? AND CURRENT_STATE > 2;", nativeQuery = true)
+    List<Order> finishedCourierOrders(Long currentUserId);
 }
+
