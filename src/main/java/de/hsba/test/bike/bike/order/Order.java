@@ -131,11 +131,9 @@ public class Order{
             String deliveree,
             String deliverStreet,
             String deliverNumber,
-            String deliverZip
+            String deliverZip,
+            String packageType
     ) {
-
-        packageType = "PAKET_KLEIN";
-
         currentState = 0;
         this.customer = customer;
         this.customerStreet = customerStreet;
@@ -145,11 +143,11 @@ public class Order{
         this.deliverStreet = deliverStreet;
         this.deliverNumber = deliverNumber;
         this.deliverZip = deliverZip;
+        this.packageType = packageType;
     }
 
     public Order(){
         currentState = 0;
-        packageType = "PAKET_KLEIN";
     }
 
     //methoden

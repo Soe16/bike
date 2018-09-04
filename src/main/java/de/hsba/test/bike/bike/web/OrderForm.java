@@ -29,6 +29,9 @@ public class OrderForm {
     @Size(min=5, max=5, message = "Geben Sie die PLZ an, an die die Lieferung geliefert werden soll")
     private String toZip;
 
+    @NotNull(message = "Bitte wählen Sie die gewünschte Paketgröße")
+    private String packageType;
+
     public String getFromName() {
         return fromName;
     }
@@ -91,6 +94,14 @@ public class OrderForm {
 
     public void setToZip(String toZip) {
         this.toZip = toZip;
+    }
+
+    public String getPackageType() {
+        return packageType;
+    }
+
+    public void setPackageType(String packageType) {
+        this.packageType = packageType;
     }
 }
 
