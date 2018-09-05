@@ -1,5 +1,6 @@
 package de.hsba.test.bike.bike.web;
 
+import de.hsba.test.bike.bike.order.Order;
 import de.hsba.test.bike.bike.order.OrderRepository;
 import de.hsba.test.bike.bike.user.User;
 import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -30,7 +33,8 @@ public class FinishedCourierOrderController {
         long currentUserId = user.getId();
 
 
-        if (orderRepository.finishedCourierOrders(currentUserId) == null){
+        List<Order> orders = orderRepository.finishedCourierOrders(currentUserId);
+        if (orders.isEmpty()){
             throw new NotFoundException();
         }
 
