@@ -3,6 +3,7 @@ package de.hsba.test.bike.bike.web;
 import de.hsba.test.bike.bike.order.OrderRepository;
 import de.hsba.test.bike.bike.user.User;
 import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
+import de.hsba.test.bike.bike.web.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,11 @@ public class CourierOrderController {
 
     @GetMapping
         public String listOrders(Model model){
+
+            if (orderRepository.findNewOrders() == null){
+                throw new NotFoundException();
+
+            }
 
             model.addAttribute("orders", orderRepository.findNewOrders());
 
