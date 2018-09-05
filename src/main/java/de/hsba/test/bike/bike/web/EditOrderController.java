@@ -44,7 +44,11 @@ public class EditOrderController {
     @GetMapping
     public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("orderForm", formAssembler.toForm(findOrder(id)));
-        return "editorder";
+        if(orderService.findOrder(id).isOwnedByCurrentUser()) {
+            return "editorder";
+        } else {
+            throw new NotFoundException();
+        }
     }
 
     @PostMapping
