@@ -1,66 +1,208 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<section layout:fragment="content">
-    <form action="/postOrder" method="post">
-        <div class="row">
-            <div class="col-md-2"> </div>
+    <section layout:fragment="content">
+        <div class="container">
+            <form action="/postOrder" method="post" th:object="${orderForm}">
+                <table class="well form-horizontal">
+                    <tbody>
 
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-5">
-                        <span>From Address</span>
-                        <input name="fromName" type="text" placeholder="Name"
-                               class="form-control"/>
-                        <input name="fromStreetName" type="text" placeholder="Street name"
-                               class="form-control"/>
-                        <input name="fromStreetNumber" type="number" placeholder="Street number"
-                               class="form-control"/>
-                        <input name="fromZip" type="number" placeholder="ZIP"
-                               class="form-control"/>
+                    <div th:classappend="${#fields.hasErrors('*') ? 'bg-danger row' : ''}">
+                        <div class="col-md-2"> </div>
+                        <div class="col-md-10">
+                            <p class="text-danger" th:errors="*{packageType}"/>
+                            <p class="text-danger" th:errors="*{fromName}"/>
+                            <p class="text-danger" th:errors="*{fromStreetName}"/>
+                            <p class="text-danger" th:errors="*{fromStreetNumber}"/>
+                            <p class="text-danger" th:errors="*{fromZip}"/>
+                            <p class="text-danger" th:errors="*{toName}"/>
+                            <p class="text-danger" th:errors="*{toStreetName}"/>
+                            <p class="text-danger" th:errors="*{toStreetNumber}"/>
+                            <p class="text-danger" th:errors="*{toZip}"/>
+                        </div>
+                        <br />
                     </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-5">
-                        <span>To Address</span>
-                        <input name="toName" type="text" placeholder="Name"
-                               class="form-control"/>
-                        <input name="toStreetName" type="text" placeholder="Street name"
-                               class="form-control"/>
-                        <input name="toStreetNumber" type="number" placeholder="Street number"
-                               class="form-control"/>
-                        <input name="toZip" type="number" placeholder="ZIP"
-                               class="form-control"/>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-2"> </div>
+                    <tr>
+                        <td colspan="1" width="50%">
+                            <fieldset class="well form-horizontal">
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('fromName') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Full Name</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                            </span>
+                                            <input name="fromName" type="text" placeholder="Name"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('fromName') ? 'inputWarning1' : ''}"
+                                                   th:field="*{fromName}"
+                                            />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('fromStreetName') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Street Name</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-home"></i>
+                                            </span>
+                                            <input name="fromStreetName" type="text" placeholder="Street name"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('fromStreetName') ? 'inputWarning1' : ''}"
+                                                   th:field="*{fromStreetName}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('fromStreetNumber') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Street Number</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-home"></i>
+                                            </span>
+                                            <input name="fromStreetNumber" type="number" placeholder="Street number"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('fromStreetNumber') ? 'inputWarning1' : ''}"
+                                                   th:field="*{fromStreetNumber}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('fromZip') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Postal Code/ZIP</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-home"></i>
+                                            </span>
+                                            <input name="fromZip" type="number" placeholder="ZIP"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('fromZip') ? 'inputWarning1' : ''}"
+                                                   th:field="*{fromZip}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Postal size</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" >
+                                                <i class="glyphicon glyphicon-list"></i>
+                                            </span>
+                                            <select name="packageType" class="form-control" th:field="*{packageType}">
+                                                <option value="BRIEF_STDRD">Brief Standard  -  max. 25 x 15 x 1cm    & 50g</option>
+                                                <option value="BRIEF_GROẞ">Brief Groß      -  max. 35 x 25 x 3 cm   & 500g</option>
+                                                <option value="PAKET_KLEIN">Paket Klein     -  max. 60 x 30 x 15 cm  & 2kg</option>
+                                                <option value="PAKET_STDRD">Paket Standard  -  max. 120 x 60 x 60 cm & 5kg</option>
+                                                <option value="PAKET_GROẞ">Paket Groß      -  max. 120 x 60 x 60 cm & 15kg</option>
+                                                <option value="PAKET_MAXI">Paket Maxi      -  max. 120 x 60 x 60 cm & 35kg</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </td>
+                        <td colspan="1" width="50%">
+                            <fieldset class="well form-horizontal">
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('toName') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Full Name</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-user"></i>
+                                                        </span>
+                                            <input name="toName" type="text" placeholder="Name"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('toName') ? 'inputWarning1' : ''}"
+                                                   th:field="*{toName}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('toStreetName') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Street Name</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-home"></i>
+                                                        </span>
+                                            <input name="toStreetName" type="text" placeholder="Street name"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('toStreetName') ? 'inputWarning1' : ''}"
+                                                   th:field="*{toStreetName}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('toStreetNumber') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Street Number</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-home"></i>
+                                                        </span>
+                                            <input name="toStreetNumber" type="number" placeholder="Street number"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('toStreetNumber') ? 'inputWarning1' : ''}"
+                                                   th:field="*{toStreetNumber}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('toZip') ? 'has-error' : ''}">
+                                    <label class="col-md-4 control-label">Postal Code/ZIP</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-home"></i>
+                                                        </span>
+                                            <input name="fromZip" type="number" placeholder="ZIP"
+                                                   class="form-control"
+                                                   th:id="${#fields.hasErrors('toZip') ? 'inputWarning1' : ''}"
+                                                   th:field="*{toZip}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" align="right">
+                                    <div class="col-md-8">
+                                        <button type="submit" class="btn btn-primary">Make a new order</button>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
-
-        <div class="row">
-            <div class="col-md-5"> </div>
-            <div class="col-md-2">
-                <select name="packageType" class="form-control">
-                    <option value="BRIEF_STDRD">Brief Standard  -  max. 25 x 15 x 1cm    & 50g</option>
-                    <option value="BRIEF_GROẞ">Brief Groß      -  max. 35 x 25 x 3 cm   & 500g</option>
-                    <option value="PAKET_KLEIN">Paket Klein     -  max. 60 x 30 x 15 cm  & 2kg</option>
-                    <option value="PAKET_STDRD">Paket Standard  -  max. 120 x 60 x 60 cm & 5kg</option>
-                    <option value="PAKET_GROẞ">Paket Groß      -  max. 120 x 60 x 60 cm & 15kg</option>
-                    <option value="PAKET_MAXI">Paket Maxi      -  max. 120 x 60 x 60 cm & 35kg</option>
-                </select>
-                <button type="submit" class="btn btn-primary">Make a new order</button>
-            </div>
-            <div class="col-md-5"> </div>
-        </div>
-
-    </form>
-</section>
+    </section>
 </body>
+
 </html>
