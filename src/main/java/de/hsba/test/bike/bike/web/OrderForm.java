@@ -5,28 +5,28 @@ import javax.validation.constraints.Size;
 
 public class OrderForm {
 
-    @NotNull(message = "Geben Sie den Namen der Person an, bei der die Lieferung abgeholt werden soll")
+    @Size(min = 3, max = 30, message = "Geben Sie den Namen der Person an, bei der die Lieferung abgeholt werden soll (min. 3, max 30 Zeichen)")
     private String fromName;
 
-    @NotNull(message = "Geben Sie die Straße an, an der die Lieferung abgeholt werden soll")
+    @Size(min = 3, max = 30, message = "Geben Sie die Straße an, an der die Lieferung abgeholt werden soll (min. 3, max 30 Zeichen)" )
     private String fromStreetName;
 
-    @NotNull(message = "Geben Sie die Straßennummer an, an der die Lieferung abgeholt werden soll")
+    @Size(min = 1, max = 5, message = "Geben Sie die Straßennummer an, an der die Lieferung abgeholt werden soll (min. 1, max 5 Ziffern)")
     private String fromStreetNumber;
 
-    @Size(min=5, max=5, message = "Geben Sie die PLZ an, an der die Lieferung abgeholt werden soll")
+    @Size(min=5, max=5, message = "Geben Sie eine valide PLZ an, an der die Lieferung abgeholt werden soll")
     private String fromZip;
 
-    @NotNull(message = "Geben Sie den Namen der Person an, an die die Lieferung geliefert werden soll")
+    @Size(min = 3, max = 30, message = "Geben Sie den Namen der Person an, an die die Lieferung geliefert werden soll (min. 3, max 30 Zeichen)")
     private String toName;
 
-    @NotNull(message = "Geben Sie die Straße an, an die die Lieferung geliefert werden soll")
+    @Size(min = 3, max = 30, message = "Geben Sie die Straße an, an die die Lieferung geliefert werden soll (min. 3, max 30 Zeichen)")
     private String toStreetName;
 
-    @NotNull(message = "Geben Sie die Straßennummer an, an die die Lieferung geliefert werden soll")
+    @Size(min = 1, max = 5, message = "Geben Sie die Straßennummer an, an die die Lieferung geliefert werden soll (min. 1, max 5 Ziffern)")
     private String toStreetNumber;
 
-    @Size(min=5, max=5, message = "Geben Sie die PLZ an, an die die Lieferung geliefert werden soll")
+    @Size(min=5, max=5, message = "Geben Sie eine valide PLZ an, an die die Lieferung geliefert werden soll")
     private String toZip;
 
     @NotNull(message = "Bitte wählen Sie die gewünschte Paketgröße")

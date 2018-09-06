@@ -23,12 +23,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .headers().frameOptions().sameOrigin().and() // allow the h2-console to be used in a frame
                 .authorizeRequests()
-
                 .antMatchers("/").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/success").permitAll()
                 .antMatchers("/h2-console/**").permitAll() // enable access to the h2-console
                 .antMatchers("/js/**").permitAll() // permit JS resources
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/success").permitAll()
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/makeOrder").hasRole("Customer")
                 .antMatchers("/customerOrder").hasRole("Customer")
