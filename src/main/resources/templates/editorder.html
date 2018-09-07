@@ -116,6 +116,7 @@
                                             <option value="PAKET_GROẞ">Paket Groß      -  max. 120 x 60 x 60 cm & 15kg</option>
                                             <option value="PAKET_MAXI">Paket Maxi      -  max. 120 x 60 x 60 cm & 35kg</option>
                                         </select>
+                                        <input th:if="${order.currentState > 0}" type="hidden" name="packageType" th:field="*{packageType}"/>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +184,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="glyphicon glyphicon-home"></i>
                                                             </span>
-                                        <input name="fromZip" type="number" placeholder="ZIP"
+                                        <input name="toZip" type="number" placeholder="ZIP"
                                                class="form-control"
                                                th:id="${#fields.hasErrors('toZip') ? 'inputWarning1' : ''}"
                                                th:field="*{toZip}"

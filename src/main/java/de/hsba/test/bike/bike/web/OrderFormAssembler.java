@@ -22,7 +22,7 @@ public class OrderFormAssembler { //command object pattern (Folien 17 und 80)
         order.setCustomer(form.getFromName());
         order.setCustomerStreet(form.getFromStreetName());
         order.setCustomerNumber(form.getFromStreetNumber());
-        order.setCustomerZip(form.getToZip());
+        order.setCustomerZip(form.getFromZip());
         order.setDeliveree(form.getToName());
         order.setDeliverStreet(form.getToStreetName());
         order.setDeliverNumber(form.getToStreetNumber());
