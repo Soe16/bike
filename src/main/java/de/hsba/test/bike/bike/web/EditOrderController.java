@@ -4,6 +4,8 @@ import de.hsba.test.bike.bike.order.Order;
 import de.hsba.test.bike.bike.order.OrderRepository;
 import de.hsba.test.bike.bike.order.OrderService;
 import de.hsba.test.bike.bike.user.UserService;
+import de.hsba.test.bike.bike.web.exceptions.ConflictException;
+import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
 import de.hsba.test.bike.bike.web.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,6 +56,23 @@ public class EditOrderController {
     @PostMapping
     public String change(Model model, @PathVariable("id") Long id,
                          @ModelAttribute("orderForm") @Valid OrderForm orderForm, BindingResult orderBinding) {
+        //user kann editpage nicht offen lassen und später editieren wenn die order bereits in delivery (oder storniert oder abgegebgen ist)
+        // bzw. html code client side editieren und die "disabled" attribute löschen und somit die order im nachhinein editieren
+        if (findOrder(id).getCurrentState() > 1) {
+            throw new ConflictException();
+        }
+        //user kann die Abholdaten nicht mehr ändern wenn die Bestellung von einem Kurier angenommen wurde
+        if (findOrder(id).getCurrentState() == 1) {
+            if (!orderForm.getFromName().equals(findOrder(id).getCustomer()) ||
+                !orderForm.getFromStreetName().equals(findOrder(id).getCustomerStreet()) ||
+                !orderForm.getFromStreetNumber().equals(findOrder(id).getCustomerNumber()) ||
+                !orderForm.getFromZip().equals(findOrder(id).getCustomerZip()) ||
+                !orderForm.getPackageType().equals(findOrder(id).getPackageType())
+                ) {
+                throw new ConflictException();
+            }
+        }
+
         if (orderBinding.hasErrors()) {
             return "editorder";
         }
@@ -63,6 +82,9 @@ public class EditOrderController {
 
     @PostMapping(path = "/cancel")
     public String cancel(@PathVariable("id") Long id) {
+    if (findOrder(id).getCurrentState() > 0) {
+        throw new ConflictException();
+    }
        orderRepository.cancelOrder(id);
        return "redirect:/customerOrder";
     }

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link th:href="@{/style/status.css}" rel="stylesheet"/>
     <!--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 !-->
@@ -113,7 +114,13 @@
             top:1px;
             z-index:1;
         }
-
+        #target {
+            position: absolute;
+            left: 50px;
+            top: 100px;
+            border: 2px solid black;
+            background-color: #ddd;
+        }
     </style>
 
 </head>
