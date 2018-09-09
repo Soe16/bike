@@ -71,16 +71,4 @@ public class UserService {
         return false;
 
     }
-
-    /*
-
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-    String username = ((UserDetails)principal).getUsername();
-
-    loadUserByUsername(username)
-        return "username"
-
-        */
-
 }

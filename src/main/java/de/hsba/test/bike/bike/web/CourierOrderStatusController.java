@@ -24,6 +24,7 @@ public class CourierOrderStatusController {
     @Autowired
     private OrderRepository orderRepository;
 
+    //alle Kurieraufträge finden
     @GetMapping
     public String listOrders(Model model){
 
@@ -42,78 +43,11 @@ public class CourierOrderStatusController {
         return "courierorderstatus";
     }
 
-
+    //Status über Button "Next Status" in der Datenbank verändern (Status +1 = neuer Status)
     @PostMapping
     public String update(@RequestParam("button") Long orderId) {
         orderRepository.updateStatus(orderId);
         return "redirect:/courierorderstatus";
     }
-
-
-
-
-
-    /*
-    @PostMapping
-    public String nextOrderStatus(@RequestParam("${order.id}") Long orderId) {
-        orderRepository.updateStatus(orderId);
-        return "courierorderstatus";
-    }
-*/
-
-
-
-
-/*
-    @GetMapping
-    public String changeStatus(@RequestParam(value="changestatus") long orderId){
-    orderRepository.updateStatus(orderId);
-    return "redirect:/";
-    }
-
-    */
-
-/* letzter Versuch
-
-    @PostMapping
-    public String nextOrderStatus(@PathVariable("id") Long orderId) {
-        orderRepository.updateStatus(orderId);
-        return "courierorderstatus";
-    }
-
-    */
-
-/*
-      <form sec:authorize="authenticated"
-    th:action="${'/journals/' + journal.id + '/entries'}" method="post" th:object="${journalEntryForm}">
-      <div class="form-group">
-*/
-
-    /* https://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/ für kommendes...
-
-
-
-
-    //https://stackoverflow.com/questions/42945495/getting-the-selected-values-from-a-checkbox-list-to-the-controller-with-spring-b
-    @PostMapping
-    public String update(@RequestParam("idChecked") List<String> idOrders) {
-
-        User user = User.getCurrentUser();
-        if (user == null) {
-            throw new ForbiddenException();
-        }
-        long currentCourierId = user.getId();
-
-
-        if(idOrders != null) {
-            for(String idOrdersUp : idOrders){
-                int id = Integer.parseInt(idOrdersUp);
-                orderRepository.updateOrder(currentCourierId, id);
-
-            }
-        }
-        return "index";
-
-        */
-    }
+}
 

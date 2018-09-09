@@ -22,7 +22,7 @@ public class CustomerOrderController {
     @Autowired
     private OrderRepository orderRepository;
 
-
+//alle Kundenaufträge herausfinden für einen bestimmten Kunden
     @GetMapping
     public String listOrders(Model model) {
 
@@ -42,6 +42,5 @@ public class CustomerOrderController {
 
         return "customerOrder";
     }
-
-    }
+}
 

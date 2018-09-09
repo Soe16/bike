@@ -24,6 +24,7 @@ public class CourierOrderController {
     @Autowired
     private OrderRepository orderRepository;
 
+    //alle neuen Aufträge finden
     @GetMapping
         public String listOrders(Model model){
 
@@ -39,7 +40,7 @@ public class CourierOrderController {
             return "orders";
     }
 
-    //https://stackoverflow.com/questions/42945495/getting-the-selected-values-from-a-checkbox-list-to-the-controller-with-spring-b
+    // Checkboxen Liste mit Schleife auslesen und bei Aufträgen mit gecheckter Checkbox den Kurier hinterlegen und den Status auf "angenommen" setzten
     @PostMapping
     public String update(@RequestParam("idChecked") List<String> idOrders) {
 
@@ -59,10 +60,4 @@ public class CourierOrderController {
             }
         return "index";
     }
-
-
-    // checkboxes die gecheckt sind, wird in datenbank bestellung geladen, dass 1. currentstatus verändern auf: (1) "The order was accepted by a courier" dementsprechen name des couriers hinterlegen..
-    // aufträge verwalten, neue seite für Kurier, same shit mit bestellung abgeholt und bestellung abgeliefert.
-
-
 }

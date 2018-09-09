@@ -5,7 +5,6 @@ import de.hsba.test.bike.bike.order.OrderRepository;
 import de.hsba.test.bike.bike.order.OrderService;
 import de.hsba.test.bike.bike.user.UserService;
 import de.hsba.test.bike.bike.web.exceptions.ConflictException;
-import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
 import de.hsba.test.bike.bike.web.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,16 +87,5 @@ public class EditOrderController {
        orderRepository.cancelOrder(id);
        return "redirect:/customerOrder";
     }
-
-
-/*
-    @PostMapping
-    public String update(@RequestParam("button") Long orderId) {
-        orderRepository.cancelOrder(orderId);
-        return "redirect:/customOrder";
-    }
-
-    */
-
 }
 

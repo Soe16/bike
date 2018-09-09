@@ -5,7 +5,6 @@ import de.hsba.test.bike.bike.order.OrderRepository;
 import de.hsba.test.bike.bike.user.User;
 import de.hsba.test.bike.bike.web.exceptions.ForbiddenException;
 import de.hsba.test.bike.bike.web.exceptions.NotFoundException;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +22,7 @@ public class FinishedCustomerOrderController {
     @Autowired
     private OrderRepository orderRepository;
 
-
+    // alle fertigen Kundenaufträge finden mit Status: abgeschlossen oder storniert
     @GetMapping
     public String finishedCustomerOrders(Model model) {
 
