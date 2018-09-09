@@ -14,10 +14,11 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     // für den CourierOrderController
 
+    //findet alle Aufträge, die den Status 0 bzw. neu haben.
     @Query(value = "SELECT * FROM BESTELLUNG B WHERE B.CURRENT_STATE=0", nativeQuery = true)
     List<Order> findNewOrders();
 
-    //Bestellungen die von einem Kurier angenommen werden. Deliver ID und Status werden neu gesetzt.
+    //Aufträge die von einem Kurier angenommen werden. Deliver ID und Status werden neu gesetzt.
     @Modifying
     @Query(value = "UPDATE BESTELLUNG SET CURRENT_STATE= 1, DELIVERER_ID=? WHERE ID= ?", nativeQuery = true)
     int updateOrder(Long currentCourierId, Integer id);
@@ -36,7 +37,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     int updateStatus(Long orderId);
 
 
-
     //für CustomerOrderController
 
     // alle noch nicht abgeschlossenen Aufträge
@@ -49,7 +49,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     int cancelOrder(Long id);
 
 
-    //für alle abgeschlossenen bzw. stornierten Aufträge
+    //für alle abgeschlossenen bzw. stornierten Aufträge ->finishedCustomerOrderController und finishedCourierOrderController
 
     //Customer-> abgeschlossene Aufträge
     @Query(value = "SELECT * FROM BESTELLUNG WHERE OWNER_ID=? AND CURRENT_STATE > 2;", nativeQuery = true)

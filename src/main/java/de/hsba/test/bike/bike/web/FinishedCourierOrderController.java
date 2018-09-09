@@ -22,7 +22,7 @@ public class FinishedCourierOrderController {
     @Autowired
     private OrderRepository orderRepository;
 
-
+    // alle fertigen Kurieraufträge finden mit Status: abgeschlossen oder storniert
     @GetMapping
     public String finishedOrders(Model model) {
 

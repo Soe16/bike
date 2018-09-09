@@ -10,9 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link th:href="@{/style/status.css}" rel="stylesheet"/>
-    <!--
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-!-->
+
     <style>
         /* apply a natural box layout model to all elements */
         *, *:before, *:after {
@@ -127,9 +125,7 @@
 <body>
 <section layout:fragment="content">
     <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="150" width="150" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
-    <!-- scheckt ob die Liste leer ist und geht sonst weiter !
-    <div th:if="${not #lists.isEmpty(customerOrder)}">
-!-->
+
         <h1>My Orders </h1>
         <form th:action="@{/customerOrder}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
                 <table class="table table-bordered">
