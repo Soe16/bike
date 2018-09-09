@@ -125,10 +125,6 @@
     <section layout:fragment="content">
 
 <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="150" width="150" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
-<!-- scheckt ob die Liste leer ist und geht sonst weiter !
-<div th:if="${not #lists.isEmpty(courierorderstatus)}">
-!-->
-
 
     <h1>My Customer Orders</h1>
 
@@ -150,9 +146,6 @@
                 <th scope="col">Change Status</th>
             </tr>
             <tbody>
-
-
-            <!-- dropdown example https://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/ !-->
 
             <tr th:each="order : ${courierorderstatus}">
 

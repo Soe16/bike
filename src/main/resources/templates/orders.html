@@ -15,10 +15,6 @@
 <section layout:fragment="content">
 <img src="https://marktforschung-portal.de/wp-content/uploads/2012/03/Fahrradkurier-400x400.jpg" height="200" width="200" alt="CHIP-Logo" border="1" align="right" hspace="1" vspace="1">
 
-<!-- scheckt ob die Liste leer ist und geht sonst weiter
-<div th:if="${not #lists.isEmpty(orders)}">
-!-->
-
 <h1>New Orders </h1>
 
     <form th:action="@{/orders}" method="POST" th:object="${order}" modelAttribute="myObjectForm">
