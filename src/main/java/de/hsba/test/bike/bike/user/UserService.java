@@ -27,12 +27,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    //initiert User für die Verwändung der Anwendung
     @PostConstruct
     public void init(){
         createUser("bob", "pass", "bob@mail.de", "Customer");
         createUser("mark", "pass","mark@gmail.com", "Customer");
         createUser("john", "pass","john@yahoo.com", "Deliverer");
-        createUser("admin", "admin","admin@admin.com", "ADMIN");
+
     }
 
     private void createUser(String username, String password, String email, String role) {
@@ -45,7 +46,7 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setName(user.getName());
         user.setEmail(user.getEmail());
-        user.setRole("Customer");
+        user.setRole(user.getRole());
         userRepository.save(user);
 
     }
