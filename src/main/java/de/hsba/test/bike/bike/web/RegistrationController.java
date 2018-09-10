@@ -34,12 +34,14 @@ public class RegistrationController {
         if (bindingResult.hasErrors()){
             return "registration";
         }
+        //Wenn User bereits existiert, dann mit Fehlermeldung zurück
         if(userService.isUserPresent(registrationForm.getName())) {
             model.addAttribute("exist",true);
 
             return "registration";
 
         }
+        //Neuer User wird erstellt
         userService.createNewUser(registrationFormAssembler.update(new User(), registrationForm));
 
         return "success";
