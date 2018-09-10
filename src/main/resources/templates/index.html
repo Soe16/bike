@@ -14,29 +14,31 @@
     <div sec:authorize="anonymous" class="col-sm-4 col-sm-offset-4">
         <div class="panel panel-default">
             <div class="panel-heading" style="text-align: center">
-                <h3>Willkommmen</h3>
+                <h3>Welcome</h3>
             </div>
             <div class="panel-body" style="text-align: center">
-                <p>Schön, dass du es auf unsere Seite geschafft hast.<br>
-                    Melde dich als Kurier oder Kunde an.<br>
-                    Falls du noch kein Kunde von uns bist, kannst du dich unten registrieren.
+                <p>We are glad you made it to our side.<br>
+                    Sign up as a courier or customer.<br>
+                    If you are not yet a customer, you can register below.
                 </p>
-                <a href="/login" class="btn btn-info" role="button">Anmelden</a>
-                <a href="/registration" class="btn btn-info" role="button">Registrieren</a>
+                <a href="/login" class="btn btn-info" role="button">Login</a>
+                <a href="/registration" class="btn btn-info" role="button">Register</a>
             </div>
         </div>
     </div>
     <div sec:authorize="authenticated" class="col-sm-4 col-sm-offset-4">
         <div class="panel panel-default">
             <div class="panel-heading" style="text-align: center">
-                <h3>Hallo <span th:text="${#httpServletRequest.remoteUser}"/>,</h3>
+                <h3>Hey <span th:text="${#httpServletRequest.remoteUser}"/>,</h3>
             </div>
-            <div class="panel-body" >
-                <p>Viel Spaß auf unserer Seite.<br>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                        et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                        Lorem ipsum dolor sit amet
+            <div sec:authorize="hasRole('Customer')" class="panel-body" >
+                <p>Enjoy our side and our fas delivery.<br>
+                    You can create a new order and keep track of the status at any time.
+                </p>
+            </div>
+            <div sec:authorize="hasRole('Deliverer')" class="panel-body" >
+                <p>Enjoy our side.<br>
+                    Select an order that you want to accept. And update the status with just a few clicks.
                 </p>
             </div>
         </div>
